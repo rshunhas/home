@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F01. Surat Permohonan Persetujuan Etik</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+	<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    <style>
+        :root {
+            --unhas-red: #980101;
+            --bg-light: #f4f4f9;
+            --text-dark: #333;
+            --border-color: #000;
+        }
+
+        * { box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 950px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            table-layout: fixed;
+            color: #000;
+        }
+
+        .header-table td {
+            border: 1px solid #000;
+            padding: 10px;
+            vertical-align: middle;
+        }
+
+        .header-logo { width: 12%; text-align: center; }
+        .header-title { width: 55%; text-align: center; }
+        .header-title h1 { font-size: 15px; margin: 0; text-transform: uppercase; color: #000; }
+        .header-title p { font-size: 9px; margin: 5px 0 0 0; line-height: 1.2; }
+        .header-meta { width: 17%; font-size: 10px; text-align: left; }
+        .header-meta table { width: 100%; border: none; }
+        .header-meta td {
+            border: none;
+            padding: 1px 0;
+            text-align: left !important;
+            color: #000;
+        }
+
+        .instruction-box {
+            background: #f0f9f1;
+            border-left: 5px solid #2d8a39;
+            padding: 15px;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+
+        .form-content {
+            font-size: 15px;
+            text-align: justify;
+            padding: 20px;
+            border: 1px solid #eee;
+        }
+
+        /* Styling Input */
+        .fillable-list {
+            list-style: none;
+            padding: 0;
+            margin: 10px 0;
+        }
+
+        .fillable-list li {
+            margin-bottom: 0px;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .fillable-list .label-text {
+			min-width: 150px;
+			display: inline-block;
+			font-weight: normal;
+		}
+		
+		.fillable-list .label-short {
+			min-width: 80px; /* Anda bisa mengecilkan angka ini jika ingin lebih rapat lagi */
+			display: inline-block;
+			font-weight: normal;
+		}
+
+        input[type="text"], textarea {
+            flex: 1;
+            border: none;
+            border-bottom: 1px solid #ccc;
+            padding: 2px 5px;
+            font-family: inherit;
+            font-size: 15px;
+            background: transparent;
+            outline: none;
+        }
+
+        input[type="text"]:focus, textarea:focus {
+            border-bottom: 1px solid var(--unhas-red);
+            background-color: #fffde7;
+        }
+
+        textarea {
+            resize: none;
+            overflow: hidden;
+            min-height: 1.6em;
+        }
+
+        .print-mirror {
+            display: none;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        .signature-area {
+            margin-top: 40px;
+            display: flex;
+            justify-content: flex-start;
+			padding-left: 55%;
+        }
+
+        .signature-box {
+            width: 250px;
+        }
+		
+		.signature-box p {
+			margin: 0;
+			padding-left: 0;
+			line-height: 1.5;
+		}
+		
+		.signature-box input, 
+		.signature-box textarea {
+			padding-left: 0 !important;
+		}
+
+        .btn-print {
+            background: var(--unhas-red);
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            display: block;
+            margin: 40px auto 0;
+            font-size: 16px;
+        }
+		
+		.instruction-box ol {
+			margin-bottom: 0;
+		}
+
+		.instruction-box li {
+			margin-bottom: 8px; /* Memberikan sedikit ruang antar poin agar tidak terlalu rapat */
+		}
+
+		.instruction-box li:last-child {
+			margin-bottom: 0;
+		}
+
+        @media print {
+			header { display: none !important; }
+			body { background: white; padding: 0; }
+			.container { box-shadow: none; padding: 0; width: 100%; max-width: 100%; }
+			.btn-print, .instruction-box { display: none !important; }
+			.form-content { border: none; padding: 0; }
+			input[type="text"] { border: none; }
+			textarea { display: none !important; }
+			.print-mirror { display: inline-block !important; border-bottom: none; flex: 1; }
+		}
+    </style>
+</head>
+<body>
+
+<nav id="navbar" style="
+  position:sticky; top:0; z-index:900;
+  background:rgba(255,255,255,.88);
+  backdrop-filter:saturate(180%) blur(20px);
+  -webkit-backdrop-filter:saturate(180%) blur(20px);
+  border-bottom:1px solid rgba(0,0,0,.09);
+  font-family:'DM Sans',system-ui,sans-serif;">
+  <div style="max-width:1080px; margin:0 auto; padding:0 32px;
+              display:flex; align-items:center; justify-content:space-between;
+              height:60px; gap:24px;">
+
+    <a href="index.html" style="display:flex; align-items:center; gap:10px; text-decoration:none;">
+      <img src="img/logo-unhas.png" alt="Logo Unhas" style="height:36px; width:auto;">
+      <span style="width:1px; height:28px; background:#d2d2d7; display:inline-block;"></span>
+      <img src="img/logo-rsh.png"   alt="Logo RSH"   style="height:36px; width:auto;">
+    </a>
+
+    <div style="display:flex; gap:2px;">
+      <a href="index.html" style="padding:5px 13px; font-size:.84rem; font-weight:500;
+         color:#3a3a3c; border-radius:7px; text-decoration:none;
+         transition:background .2s;">Beranda</a>
+      <a href="profil.html" style="padding:5px 13px; font-size:.84rem; font-weight:500;
+         color:#3a3a3c; border-radius:7px; text-decoration:none;">Profil</a>
+      <a href="kehp.html" style="padding:5px 13px; font-size:.84rem; font-weight:500;
+         color:#980101; border-radius:7px; text-decoration:none;
+         background:rgba(152,1,1,.07);">Etik &amp; Penelitian</a>
+      <a href="kontak.html" style="padding:5px 13px; font-size:.84rem; font-weight:500;
+         color:#3a3a3c; border-radius:7px; text-decoration:none;">Kontak</a>
+    </div>
+
+  </div>
+</nav>
+
+<div class="container">
+    <header>
+        <table class="header-table">
+            <tr>
+                <td class="header-logo">
+                    <img src="img/logo-rsh.png" alt="Logo Unhas" style="width: 75px;">
+                </td>
+                <td class="header-title">
+                    <h1>KOMISI ETIK HEWAN DAN PENELITIAN<br>RUMAH SAKIT HEWAN UNIVERSITAS HASANUDDIN</h1>
+                    <p>Jl. Al-Markaz Al-Islami Blok IX, Kompleks Unhas Sunu, Kel. Kalukuang, Kec. Tallo, Kota Makassar</p>
+                    <div style="margin-top: 10px; font-weight: bold; border-top: 1px solid #000; padding-top: 5px;">
+                        SURAT PERMOHONAN PERSETUJUAN ETIK
+                    </div>
+                </td>
+                <td class="header-meta">
+                    <table>
+                        <tr>
+                            <td>No.</td>
+                            <td>: KEHP-RSH-F01</td>
+                        </tr>
+                        <tr>
+                            <td>Versi</td>
+                            <td>: 1.0</td>
+                        </tr>
+                        <tr>
+                            <td>Tgl. Rev</td>
+                            <td>: 10-01-2026</td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </header>
+
+    <div class="instruction-box">
+        <strong>Petunjuk:</strong> Isi kolom di bawah ini secara langsung.
+    </div>
+
+    <form id="requestForm" class="form-content">
+        
+		<ul class="fillable-list" style="margin-bottom: 30px;">
+			<li>
+				<span class="label-short">No.</span>
+				<span>: &nbsp;</span>
+				<textarea id="no_surat" placeholder="Tuliskan nomor surat. Jika permohonan dari individu, kosongkan saja."></textarea>
+				<div id="mirror_no_surat" class="print-mirror"></div>
+			</li>
+			<li>
+				<span class="label-short">Hal</span>
+				<span>: &nbsp;</span>
+				<textarea id="hal" placeholder="Tuliskan perihal surat (contoh: Permohonan persetujuan etik)"></textarea>
+				<div id="mirror_hal" class="print-mirror"></div>
+			</li>
+			<li>
+				<span class="label-short">Lampiran</span>
+				<span>: &nbsp;</span>
+				<textarea id="lampiran" placeholder="Tuliskan jumlah lampiran (contoh: Dua berkas)"></textarea>
+				<div id="mirror_lampiran" class="print-mirror"></div>
+			</li>
+		</ul>
+		
+		<p>Yth. Direktur Rumah Sakit Hewan Universitas Hasanuddin<br>
+        c.q. Kepala Bidang Etik Hewan dan Penelitian<br>
+        di Makassar</p>
+
+        <p>Dengan hormat,</p>
+
+        <p>Melalui surat ini, saya yang bertanda tangan di bawah ini mengajukan permohonan persetujuan etik terhadap kegiatan dengan rincian sebagai berikut:</p>
+
+        <ul class="fillable-list">
+			<li>
+				<span class="label-text">Nama pemohon</span>
+				<span>: &nbsp;</span>
+				<textarea id="nama" placeholder="Tuliskan nama lengkap"></textarea>
+				<div id="mirror_nama" class="print-mirror"></div>
+			</li>
+			<li>
+				<span class="label-text">NIP/NIM/NIK</span>
+				<span>: &nbsp;</span>
+				<textarea id="id_number" placeholder="Tuliskan nomor identitas"></textarea>
+				<div id="mirror_id_number" class="print-mirror"></div>
+			</li>
+			<li>
+				<span class="label-text">Institusi</span>
+				<span>: &nbsp;</span>
+				<textarea id="institusi" placeholder="Tuliskan asal institusi"></textarea>
+				<div id="mirror_institusi" class="print-mirror"></div>
+			</li>
+			<li>
+				<span class="label-text">Judul kegiatan</span>
+				<span>: &nbsp;</span>
+				<textarea id="judul" placeholder="Tuliskan judul kegiatan pendidikan atau penelitian"></textarea>
+				<div id="mirror_judul" class="print-mirror"></div>
+			</li>
+		</ul>
+
+        <p>Sebagai bahan pertimbangan, saya melampirkan berkas pendukung sebagai berikut:</p>
+        
+        <ul style="list-style-type: disc; margin-left: 10px;">
+            <li>Formulir KEHP-RSH-F02 (Pengajuan Peninjauan Kelayakan Etik).</li>
+            <li>Proposal penelitian atau panduan praktikum.</li>
+        </ul>
+
+        <p>Demikian permohonan ini saya sampaikan. Atas perhatian dan kerja sama Bapak/Ibu, saya ucapkan terima kasih.</p>
+
+        <div class="signature-area">
+            <div class="signature-box">
+                <p><input type="text" id="tgl_skrg" style="width: 100%;" placeholder="Tuliskan tempat dan tanggal"></p>
+                <p>Hormat saya,</p>
+                <div style="height: 70px;"></div>
+                <input type="text" id="nama_bawah" style="width: 100%; font-weight: bold;" placeholder="Nama lengkap pemohon">
+            </div>
+        </div>
+    </form>
+
+    <div class="instruction-box">
+			<strong>Langkah selanjutnya:</strong>
+			<ol style="margin-top: 10px; padding-left: 20px;">
+				<li>Pastikan seluruh isian sudah benar.</li>
+				<li>Jika sudah final, klik tombol <b>"Simpan sebagai PDF/cetak"</b>. Pada jendela cetak yang muncul, pastikan pilih "Save as PDF". Anda dapat mengatur batas (margin) halaman di jendela cetak. Sebagai contoh, jika Anda ingin memberikan kop surat, maka atur margin atas menjadi lebih besar.</li>
+				<li>Kirimkan file PDF tersebut bersama lampiran surat (formulir KEHP-RSH-F02 dan proposal) ke sekretariat KEHP RSH Unhas di alamat surel <b>kehp.rshunhas@gmail.com</b></li>
+			</ol>
+		</div>
+	
+	<button type="button" class="btn-print" onclick="window.print()">🖨️ Simpan sebagai PDF/Cetak</button>
+</div>
+
+<script>
+    // Menangani semua textarea agar otomatis melebar dan sinkron dengan tampilan cetak
+    document.querySelectorAll('textarea').forEach(textarea => {
+        textarea.addEventListener('input', function() {
+            // Mengatur tinggi otomatis
+            this.style.height = 'auto';
+            this.style.height = (this.scrollHeight) + 'px';
+            
+            // Sinkronisasi teks ke elemen mirror untuk cetak
+            const mirror = document.getElementById('mirror_' + this.id);
+            if (mirror) {
+                mirror.textContent = this.value;
+            }
+
+            // Khusus untuk sinkronisasi nama ke bagian tanda tangan bawah
+            if (this.id === 'nama') {
+                const inputNamaBawah = document.getElementById('nama_bawah');
+                if (inputNamaBawah) inputNamaBawah.value = this.value;
+            }
+        });
+    });
+</script>
+
+<footer style="
+  background:#1d1d1f; color:rgba(255,255,255,.5);
+  padding:28px 0; margin-top:48px;
+  font-family:'DM Sans',system-ui,sans-serif;">
+  <div style="max-width:1080px; margin:0 auto; padding:0 32px;
+              display:flex; align-items:center; justify-content:space-between;
+              flex-wrap:wrap; gap:16px;">
+    <div style="display:flex; align-items:center; gap:10px;">
+      <img src="img/logo-unhas.png" alt="Logo Unhas"
+           style="height:26px; filter:brightness(0) invert(1); opacity:.5;">
+      <span style="width:1px; height:20px; background:rgba(255,255,255,.15); display:inline-block;"></span>
+      <img src="img/logo-rsh.png" alt="Logo RSH"
+           style="height:26px; filter:brightness(0) invert(1); opacity:.5;">
+      <span style="font-size:.80rem; color:rgba(255,255,255,.4);">RSH Universitas Hasanuddin</span>
+    </div>
+    <p style="font-size:.75rem;">
+      &copy; <span id="footerYear"></span> RSH Universitas Hasanuddin
+    </p>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('footerYear').textContent = new Date().getFullYear();
+</script>
+
+</body>
+</html>
