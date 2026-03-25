@@ -5,8 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>F01. Surat Permohonan Persetujuan Etik</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
-	<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
     <style>
         :root {
             --unhas-red: #980101;
@@ -195,45 +193,12 @@
 </head>
 <body>
 
-<nav id="navbar" style="
-  position:sticky; top:0; z-index:900;
-  background:rgba(255,255,255,.88);
-  backdrop-filter:saturate(180%) blur(20px);
-  -webkit-backdrop-filter:saturate(180%) blur(20px);
-  border-bottom:1px solid rgba(0,0,0,.09);
-  font-family:'DM Sans',system-ui,sans-serif;">
-  <div style="max-width:1080px; margin:0 auto; padding:0 32px;
-              display:flex; align-items:center; justify-content:space-between;
-              height:60px; gap:24px;">
-
-    <a href="index.html" style="display:flex; align-items:center; gap:10px; text-decoration:none;">
-      <img src="img/logo-unhas.png" alt="Logo Unhas" style="height:36px; width:auto;">
-      <span style="width:1px; height:28px; background:#d2d2d7; display:inline-block;"></span>
-      <img src="img/logo-rsh.png"   alt="Logo RSH"   style="height:36px; width:auto;">
-    </a>
-
-    <div style="display:flex; gap:2px;">
-      <a href="index.html" style="padding:5px 13px; font-size:.84rem; font-weight:500;
-         color:#3a3a3c; border-radius:7px; text-decoration:none;
-         transition:background .2s;">Beranda</a>
-      <a href="profil.html" style="padding:5px 13px; font-size:.84rem; font-weight:500;
-         color:#3a3a3c; border-radius:7px; text-decoration:none;">Profil</a>
-      <a href="kehp.html" style="padding:5px 13px; font-size:.84rem; font-weight:500;
-         color:#980101; border-radius:7px; text-decoration:none;
-         background:rgba(152,1,1,.07);">Etik &amp; Penelitian</a>
-      <a href="kontak.html" style="padding:5px 13px; font-size:.84rem; font-weight:500;
-         color:#3a3a3c; border-radius:7px; text-decoration:none;">Kontak</a>
-    </div>
-
-  </div>
-</nav>
-
 <div class="container">
     <header>
         <table class="header-table">
             <tr>
                 <td class="header-logo">
-                    <img src="img/logo-rsh.png" alt="Logo RSH Unhas" style="width: 50px;">
+                    <img src="img/logo-rsh.png" alt="Logo RSH Unhas" style="width: 75px;">
                 </td>
                 <td class="header-title">
                     <h1>KOMISI ETIK HEWAN DAN PENELITIAN<br>RUMAH SAKIT HEWAN UNIVERSITAS HASANUDDIN</h1>
@@ -376,31 +341,6 @@
             }
         });
     });
-</script>
-
-<footer style="
-  background:#1d1d1f; color:rgba(255,255,255,.5);
-  padding:28px 0; margin-top:48px;
-  font-family:'DM Sans',system-ui,sans-serif;">
-  <div style="max-width:1080px; margin:0 auto; padding:0 32px;
-              display:flex; align-items:center; justify-content:space-between;
-              flex-wrap:wrap; gap:16px;">
-    <div style="display:flex; align-items:center; gap:10px;">
-      <img src="img/logo-unhas.png" alt="Logo Unhas"
-           style="height:26px; filter:brightness(0) invert(1); opacity:.5;">
-      <span style="width:1px; height:20px; background:rgba(255,255,255,.15); display:inline-block;"></span>
-      <img src="img/logo-rsh.png" alt="Logo RSH"
-           style="height:26px; filter:brightness(0) invert(1); opacity:.5;">
-      <span style="font-size:.80rem; color:rgba(255,255,255,.4);">RSH Universitas Hasanuddin</span>
-    </div>
-    <p style="font-size:.75rem;">
-      &copy; <span id="footerYear"></span> RSH Universitas Hasanuddin
-    </p>
-  </div>
-</footer>
-
-<script>
-  document.getElementById('footerYear').textContent = new Date().getFullYear();
 </script>
 
 </body>
