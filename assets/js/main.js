@@ -4,68 +4,51 @@
 
 document.addEventListener('DOMContentLoaded', () => {
 
-  /* ── Navbar: shadow saat scroll ── */
-  const navbar = document.getElementById('navbar');
-  if (navbar) {
-    window.addEventListener('scroll', () => {
-      navbar.classList.toggle('scrolled', window.scrollY > 20);
-    }, { passive: true });
-  }
-
-  /* ── Hamburger mobile ── */
-  const hamburger = document.getElementById('navHamburger');
-  const mobileMenu = document.getElementById('navMobile');
-  if (hamburger && mobileMenu) {
-    hamburger.addEventListener('click', () => {
-      const isOpen = mobileMenu.classList.toggle('open');
-      hamburger.classList.toggle('open', isOpen);
-      hamburger.setAttribute('aria-expanded', isOpen);
+  /* ── Hamburger ── */
+  const burger = document.getElementById('navBurger');
+  const mobile = document.getElementById('navMobile');
+  if (burger && mobile) {
+    burger.addEventListener('click', () => {
+      const open = mobile.classList.toggle('open');
+      burger.classList.toggle('open', open);
+      burger.setAttribute('aria-expanded', open);
     });
   }
 
-  /* ── Tandai link aktif berdasarkan URL ── */
-  const currentPath = window.location.pathname.replace(/\/$/, '');
-  document.querySelectorAll('.nav-links a, .nav-mobile a').forEach(link => {
-    const linkPath = new URL(link.href, window.location.origin)
-      .pathname.replace(/\/$/, '');
-    if (linkPath === currentPath) {
-      link.classList.add('active');
-    }
+  /* ── Tandai link aktif ── */
+  const path = window.location.pathname.replace(/\/$/, '');
+  document.querySelectorAll('.nav-links a, .nav-mobile a').forEach(a => {
+    const ap = new URL(a.href, location.origin).pathname.replace(/\/$/, '');
+    if (ap === path) a.classList.add('active');
   });
 
-  /* ── Smooth scroll untuk anchor link ── */
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', e => {
-      const target = document.querySelector(anchor.getAttribute('href'));
-      if (target) {
-        e.preventDefault();
-        const offset = navbar ? navbar.offsetHeight + 16 : 16;
-        const top = target.getBoundingClientRect().top + window.scrollY - offset;
-        window.scrollTo({ top, behavior: 'smooth' });
-        // Tutup mobile menu jika terbuka
-        if (mobileMenu) mobileMenu.classList.remove('open');
-        if (hamburger) hamburger.classList.remove('open');
-      }
+  /* ── Smooth scroll anchor ── */
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const t = document.querySelector(a.getAttribute('href'));
+      if (!t) return;
+      e.preventDefault();
+      const nav = document.getElementById('navbar');
+      const offset = nav ? nav.offsetHeight + 20 : 20;
+      window.scrollTo({ top: t.getBoundingClientRect().top + scrollY - offset, behavior: 'smooth' });
+      if (mobile) { mobile.classList.remove('open'); burger?.classList.remove('open'); }
     });
   });
 
-  /* ── Intersection Observer: animasi fade-up ── */
-  const fadeEls = document.querySelectorAll('.fade-up');
-  if (fadeEls.length && 'IntersectionObserver' in window) {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.style.opacity = '1';
-          entry.target.style.animationPlayState = 'running';
-          observer.unobserve(entry.target);
-        }
+  /* ── Scroll reveal ── */
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
       });
-    }, { threshold: 0.12 });
-
-    fadeEls.forEach(el => {
-      el.style.animationPlayState = 'paused';
-      observer.observe(el);
-    });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  } else {
+    document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
   }
+
+  /* ── Tahun footer ── */
+  const y = document.getElementById('year');
+  if (y) y.textContent = new Date().getFullYear();
 
 });
