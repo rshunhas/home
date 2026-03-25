@@ -3,150 +3,286 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Rumah Sakit Hewan Universitas Hasanuddin</title>
-  <meta name="description" content="RSH Unhas — Layanan kesehatan hewan, hewan laboratorium, dan komisi etik hewan dan penelitian di Makassar.">
+  <title>Rumah Sakit Hewan — Universitas Hasanuddin</title>
+  <meta name="description" content="Rumah Sakit Hewan Universitas Hasanuddin — layanan kesehatan hewan, hewan percobaan, dan komisi etik hewan dan penelitian.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="assets/css/style.css">
-  <style>
-    .hero{background:var(--navy);background-image:linear-gradient(160deg,#0f1b38 0%,#1a2744 50%,#2a1a1a 100%);color:var(--white);padding:100px 0 0;position:relative;overflow:hidden;}
-    .hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 60% at 80% 50%,rgba(139,0,0,.18) 0%,transparent 70%),repeating-linear-gradient(-45deg,transparent,transparent 60px,rgba(255,255,255,.012) 60px,rgba(255,255,255,.012) 61px);}
-    .hero-inner{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;padding-bottom:80px;}
-    .hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(200,169,81,.18);border:1px solid rgba(200,169,81,.35);color:var(--gold);padding:5px 14px;border-radius:20px;font-size:.78rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:24px;}
-    .hero h1{color:var(--white);margin-bottom:20px;line-height:1.2;}
-    .hero h1 span{color:var(--gold);}
-    .hero p{font-size:1.1rem;opacity:.82;margin-bottom:36px;line-height:1.8;}
-    .hero-actions{display:flex;gap:14px;flex-wrap:wrap;}
-    .hero-img-frame{width:100%;max-width:440px;aspect-ratio:4/3;border-radius:12px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;overflow:hidden;}
-    .hero-img-frame img{width:100%;height:100%;object-fit:cover;}
-    .placeholder-img{text-align:center;color:rgba(255,255,255,.35);font-size:.82rem;padding:24px;line-height:1.8;}
-    .hero-stats{display:grid;grid-template-columns:repeat(3,1fr);background:rgba(0,0,0,.25);border-top:1px solid rgba(255,255,255,.08);position:relative;z-index:1;}
-    .hero-stat{text-align:center;padding:28px 20px;}
-    .hero-stat .num{font-family:var(--font-head);font-size:2rem;font-weight:600;color:var(--gold);line-height:1;margin-bottom:6px;}
-    .hero-stat .desc{font-size:.82rem;opacity:.65;line-height:1.4;}
-    .services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px;}
-    .service-card{background:var(--white);border-radius:var(--radius);padding:32px 28px;box-shadow:var(--shadow);border-top:3px solid transparent;transition:all .22s ease;text-decoration:none!important;color:var(--text);display:block;}
-    .service-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-md);border-top-color:var(--red);}
-    .service-icon{width:52px;height:52px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:24px;margin-bottom:20px;}
-    .icon-red{background:var(--red-light)}.icon-navy{background:#e8ecf4}.icon-gold{background:var(--gold-light)}.icon-green{background:#eef8f0}
-    .service-card h3{font-size:1.1rem;margin-bottom:10px;}
-    .service-card p{font-size:.9rem;color:var(--text-muted);margin-bottom:18px;}
-    .service-card .arrow{font-size:.85rem;font-weight:600;color:var(--red);}
-    .highlight-strip{background:var(--red);color:var(--white);padding:18px 0;}
-    .highlight-inner{display:flex;align-items:center;gap:16px;flex-wrap:wrap;}
-    .highlight-inner .tag{background:rgba(255,255,255,.2);padding:3px 12px;border-radius:20px;font-size:.78rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;flex-shrink:0;}
-    .highlight-inner p{margin:0;font-size:.9rem;opacity:.92;flex:1;}
-    .highlight-inner a{color:var(--gold);font-size:.85rem;font-weight:600;white-space:nowrap;}
-    .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;}
-    .about-img{border-radius:12px;aspect-ratio:4/3;background:#e8ecf4;overflow:hidden;display:flex;align-items:center;justify-content:center;color:var(--text-muted);font-size:.85rem;text-align:center;}
-    .about-features{display:flex;flex-direction:column;gap:16px;margin-top:28px;}
-    .about-feature{display:flex;gap:14px;align-items:flex-start;}
-    .about-feature .dot{width:8px;height:8px;border-radius:50%;background:var(--gold);flex-shrink:0;margin-top:8px;}
-    .about-feature p{margin:0;font-size:.95rem;color:var(--text-muted);}
-    .kehp-cta{background:var(--navy);background-image:linear-gradient(135deg,var(--navy) 0%,#2a3a6a 100%);color:var(--white);border-radius:12px;padding:56px 48px;display:grid;grid-template-columns:1fr auto;gap:40px;align-items:center;}
-    .kehp-cta h2{color:var(--white);margin-bottom:12px;}
-    .kehp-cta p{opacity:.8;margin-bottom:0;max-width:480px;}
-    .kehp-cta-actions{display:flex;flex-direction:column;gap:12px;min-width:180px;}
-    @media(max-width:768px){.hero-inner{grid-template-columns:1fr;gap:40px;padding-bottom:48px;}.hero-visual{display:none;}.hero-stats{grid-template-columns:1fr;}.about-grid{grid-template-columns:1fr;gap:32px;}.kehp-cta{grid-template-columns:1fr;padding:36px 28px;}}
-  </style>
 </head>
 <body>
-  <main>
-    <section class="hero">
-      <div class="container">
-        <div class="hero-inner">
-          <div class="fade-in-up">
-            <div class="hero-badge">
-              <svg width="8" height="8"><circle cx="4" cy="4" r="4" fill="#C8A951"/></svg>
-              Universitas Hasanuddin &middot; Makassar
-            </div>
-            <h1>Rumah Sakit Hewan<br><span>Universitas Hasanuddin</span></h1>
-            <p>Fasilitas kesehatan hewan terintegrasi yang melayani pasien klinis, mendukung penelitian ilmiah, dan menyelenggarakan pendidikan berbasis bukti.</p>
-            <div class="hero-actions">
-              <a href="layanan-klinik/" class="btn btn-primary">Layanan Klinik</a>
-              <a href="kehp/" class="btn btn-ghost">Komisi Etik (KEHP)</a>
-            </div>
-          </div>
-          <div class="hero-visual fade-in-up delay-2">
-            <div class="hero-img-frame">
-              <img src="assets/img/hero-rsh.jpg" alt="RSH Unhas" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
-              <div class="placeholder-img" style="display:none">Foto gedung RSH<br>dapat ditempatkan di sini<br><code style="font-size:.72rem;opacity:.7">assets/img/hero-rsh.jpg</code></div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="hero-stats">
-        <div class="hero-stat"><div class="num">24/7</div><div class="desc">Layanan Gawat Darurat</div></div>
-        <div class="hero-stat"><div class="num">RSH</div><div class="desc">RS Hewan Pendidikan</div></div>
-        <div class="hero-stat"><div class="num">KEHP</div><div class="desc">Komisi Etik Hewan &amp; Penelitian</div></div>
-      </div>
-    </section>
 
-    <div class="highlight-strip">
-      <div class="container">
-        <div class="highlight-inner">
-          <span class="tag">Informasi</span>
-          <p>Pengajuan persetujuan etik untuk kegiatan penelitian dan pendidikan kini dapat dilakukan secara online.</p>
-          <a href="kehp/#formulir">Lihat Formulir &rarr;</a>
+<!-- ════════════════════════════════════════════════════════
+     NAVBAR
+════════════════════════════════════════════════════════════ -->
+<nav id="navbar" role="navigation" aria-label="Navigasi utama">
+  <div class="nav-wrap">
+
+    <a href="/home/" class="nav-brand">
+      <img src="assets/img/logo-unhas.png" alt="Logo Universitas Hasanuddin">
+      <span>
+        <span class="nav-brand-name">RSH Universitas Hasanuddin</span>
+        <span class="nav-brand-sub">Rumah Sakit Hewan</span>
+      </span>
+    </a>
+
+    <ul class="nav-links">
+      <li><a href="/home/" class="active">Beranda</a></li>
+      <li><a href="/home/profil/">Profil</a></li>
+      <li class="nav-dd">
+        <a href="#">Layanan</a>
+        <ul class="dd-menu">
+          <li><a href="/home/layanan-klinik/">Layanan Kesehatan Hewan</a></li>
+          <li><a href="/home/layanan-lab/">Layanan Hewan Percobaan</a></li>
+        </ul>
+      </li>
+      <li><a href="/home/kehp/">Etik &amp; Penelitian</a></li>
+      <li><a href="/home/kontak/">Kontak</a></li>
+    </ul>
+
+    <button class="nav-burger" id="navBurger"
+            aria-label="Buka menu" aria-expanded="false" aria-controls="navMobile">
+      <span></span><span></span><span></span>
+    </button>
+
+  </div>
+
+  <!-- Mobile -->
+  <div class="nav-wrap" style="padding-top:0; padding-bottom:0;">
+    <nav class="nav-mobile" id="navMobile" aria-label="Menu mobile">
+      <a href="/home/" class="active">Beranda</a>
+      <a href="/home/profil/">Profil</a>
+      <div class="m-sep"></div>
+      <div class="m-sub">
+        <a href="/home/layanan-klinik/">Layanan Kesehatan Hewan</a>
+        <a href="/home/layanan-lab/">Layanan Hewan Percobaan</a>
+      </div>
+      <div class="m-sep"></div>
+      <a href="/home/kehp/">Etik &amp; Penelitian</a>
+      <a href="/home/kontak/">Kontak</a>
+    </nav>
+  </div>
+</nav>
+
+
+<!-- ════════════════════════════════════════════════════════
+     HERO
+════════════════════════════════════════════════════════════ -->
+<section class="hero">
+  <div class="wrap">
+    <span class="hero-eyebrow reveal">Universitas Hasanuddin · Makassar</span>
+    <h1 class="reveal d1">
+      Merawat hewan.<br>
+      <em>Memajukan ilmu.</em>
+    </h1>
+    <p class="hero-lead reveal d2">
+      Pusat layanan kesehatan hewan, penelitian, dan etik hewan
+      terintegrasi di Kawasan Timur Indonesia.
+    </p>
+    <div class="hero-actions reveal d3">
+      <a href="/home/layanan-klinik/" class="btn btn-fill">Layanan Klinik</a>
+      <a href="/home/kehp/" class="btn btn-ghost">Komisi Etik (KEHP)</a>
+    </div>
+  </div>
+</section>
+
+<hr class="divider-section">
+
+
+<!-- ════════════════════════════════════════════════════════
+     TIGA LAYANAN — setara, tidak ada yang lebih menonjol
+════════════════════════════════════════════════════════════ -->
+<section class="services-section">
+  <div class="wrap">
+
+    <div class="services-header reveal">
+      <span class="label">Apa yang kami tawarkan</span>
+      <h2>Tiga pilar layanan RSH</h2>
+    </div>
+
+    <div class="services-grid">
+
+      <!-- 1. Kesehatan Hewan -->
+      <div class="svc-card reveal">
+        <span class="svc-num">01</span>
+        <div class="svc-icon">
+          <!-- icon: stethoscope sederhana -->
+          <svg viewBox="0 0 26 26" fill="none" stroke="var(--red)" stroke-width="1.6"
+               stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="18" cy="18" r="4"/>
+            <path d="M7 4v8a6 6 0 0 0 6 6"/>
+            <path d="M4 4h6"/>
+            <path d="M7 4a0 0 0 1 0 0-.001"/>
+          </svg>
         </div>
+        <h3>Layanan Kesehatan Hewan</h3>
+        <p>
+          Pemeriksaan, diagnosis, dan tindakan medis untuk hewan kesayangan
+          dan hewan produksi oleh dokter hewan berpengalaman.
+        </p>
+        <a href="/home/layanan-klinik/" class="svc-link">
+          Selengkapnya
+          <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8"
+               stroke-linecap="round" stroke-linejoin="round">
+            <path d="M2 7h10M8 3l4 4-4 4"/>
+          </svg>
+        </a>
+      </div>
+
+      <!-- 2. Hewan Percobaan -->
+      <div class="svc-card reveal d1">
+        <span class="svc-num">02</span>
+        <div class="svc-icon">
+          <!-- icon: mikroskop sederhana -->
+          <svg viewBox="0 0 26 26" fill="none" stroke="var(--red)" stroke-width="1.6"
+               stroke-linecap="round" stroke-linejoin="round">
+            <rect x="9" y="3" width="8" height="14" rx="4"/>
+            <path d="M13 17v4"/>
+            <path d="M8 21h10"/>
+            <path d="M6 12l3 2"/>
+          </svg>
+        </div>
+        <h3>Layanan Hewan Percobaan</h3>
+        <p>
+          Penyediaan, pemeliharaan, dan pengelolaan hewan coba sesuai
+          standar kesejahteraan hewan untuk kebutuhan penelitian ilmiah.
+        </p>
+        <a href="/home/layanan-lab/" class="svc-link">
+          Selengkapnya
+          <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8"
+               stroke-linecap="round" stroke-linejoin="round">
+            <path d="M2 7h10M8 3l4 4-4 4"/>
+          </svg>
+        </a>
+      </div>
+
+      <!-- 3. Komisi Etik -->
+      <div class="svc-card reveal d2">
+        <span class="svc-num">03</span>
+        <div class="svc-icon">
+          <!-- icon: dokumen + tanda centang -->
+          <svg viewBox="0 0 26 26" fill="none" stroke="var(--red)" stroke-width="1.6"
+               stroke-linecap="round" stroke-linejoin="round">
+            <rect x="5" y="3" width="16" height="20" rx="2"/>
+            <path d="M9 9h8M9 13h8M9 17h5"/>
+            <path d="M16 19l2 2 3-3" stroke-width="1.8"/>
+          </svg>
+        </div>
+        <h3>Komisi Etik Hewan &amp; Penelitian</h3>
+        <p>
+          Peninjauan dan pemberian persetujuan etik untuk kegiatan
+          penelitian dan pendidikan yang melibatkan hewan.
+        </p>
+        <a href="/home/kehp/" class="svc-link">
+          Selengkapnya
+          <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8"
+               stroke-linecap="round" stroke-linejoin="round">
+            <path d="M2 7h10M8 3l4 4-4 4"/>
+          </svg>
+        </a>
+      </div>
+
+    </div><!-- /services-grid -->
+  </div>
+</section>
+
+<hr class="divider-section">
+
+
+<!-- ════════════════════════════════════════════════════════
+     KONTAK STRIP + INFO
+════════════════════════════════════════════════════════════ -->
+<section class="contact-strip">
+  <div class="wrap">
+
+    <div class="contact-strip-inner reveal">
+      <div>
+        <h2>Ada yang ingin<br>Anda tanyakan?</h2>
+        <p style="margin-top:8px;">Kami siap membantu kebutuhan Anda.</p>
+      </div>
+      <a href="/home/kontak/" class="btn btn-fill">Hubungi kami</a>
+    </div>
+
+    <div class="info-cols">
+      <div class="info-col reveal">
+        <span class="ic-label">Alamat</span>
+        <p>
+          Jl. Al-Markaz Al-Islami Blok IX,<br>
+          Kompleks Unhas Sunu, Kel. Kalukuang,<br>
+          Kec. Tallo, Kota Makassar
+        </p>
+      </div>
+      <div class="info-col reveal d1">
+        <span class="ic-label">Surel</span>
+        <p>
+          Umum: <a href="mailto:rsh@unhas.ac.id">rsh@unhas.ac.id</a><br>
+          Komisi Etik:&nbsp;<a href="mailto:kehp.rshunhas@gmail.com">kehp.rshunhas@gmail.com</a>
+        </p>
+      </div>
+      <div class="info-col reveal d2">
+        <span class="ic-label">Jam Operasional</span>
+        <p>
+          Senin – Jumat: 08.00 – 16.00 WITA<br>
+          Sabtu: 08.00 – 12.00 WITA
+        </p>
       </div>
     </div>
 
-    <section class="section" style="background:var(--white)">
-      <div class="container">
-        <div class="section-heading">
-          <span class="label">Layanan Kami</span>
-          <h2>Apa yang Kami Tawarkan</h2>
-          <p>RSH Unhas menyediakan layanan komprehensif untuk kesehatan hewan, riset, dan etik penelitian.</p>
-          <div class="divider"></div>
-        </div>
-        <div class="services-grid">
-          <a href="profil/" class="service-card fade-in-up"><div class="service-icon icon-navy">🏥</div><h3>Profil RSH</h3><p>Sejarah, visi misi, struktur organisasi, dan fasilitas Rumah Sakit Hewan Unhas.</p><span class="arrow">Selengkapnya &rarr;</span></a>
-          <a href="layanan-klinik/" class="service-card fade-in-up delay-1"><div class="service-icon icon-red">🩺</div><h3>Layanan Kesehatan Hewan</h3><p>Pemeriksaan, diagnosa, pembedahan, dan perawatan rawat inap untuk hewan kesayangan.</p><span class="arrow">Selengkapnya &rarr;</span></a>
-          <a href="layanan-lab/" class="service-card fade-in-up delay-2"><div class="service-icon icon-gold">🔬</div><h3>Layanan Hewan Laboratorium</h3><p>Penyediaan dan perawatan hewan coba untuk mendukung kegiatan penelitian ilmiah.</p><span class="arrow">Selengkapnya &rarr;</span></a>
-          <a href="kehp/" class="service-card fade-in-up delay-3"><div class="service-icon icon-green">📋</div><h3>Komisi Etik (KEHP)</h3><p>Pengajuan persetujuan etik untuk kegiatan penelitian dan pendidikan yang melibatkan hewan.</p><span class="arrow">Selengkapnya &rarr;</span></a>
-        </div>
-      </div>
-    </section>
+  </div>
+</section>
 
-    <section class="section" style="background:var(--bg)">
-      <div class="container">
-        <div class="about-grid">
-          <div class="about-img">
-            <img src="assets/img/about-rsh.jpg" alt="RSH Unhas" style="width:100%;height:100%;object-fit:cover" onerror="this.parentElement.innerHTML='<p style=\'color:var(--text-muted);font-size:.85rem;padding:20px\'>Foto RSH<br><code>assets/img/about-rsh.jpg</code></p>'">
-          </div>
-          <div>
-            <div class="section-heading" style="margin-bottom:28px">
-              <span class="label">Tentang Kami</span>
-              <h2>Rumah Sakit Hewan Pendidikan</h2>
-              <div class="divider"></div>
-            </div>
-            <p>RSH Universitas Hasanuddin adalah fasilitas kesehatan hewan yang berfungsi sebagai rumah sakit hewan pendidikan, tempat mahasiswa kedokteran hewan berlatih secara langsung di bawah supervisi tenaga ahli berpengalaman.</p>
-            <div class="about-features">
-              <div class="about-feature"><div class="dot"></div><p>Pelayanan klinis hewan kesayangan dan hewan besar oleh dokter hewan spesialis.</p></div>
-              <div class="about-feature"><div class="dot"></div><p>Fasilitas laboratorium diagnostik terintegrasi untuk mendukung penelitian.</p></div>
-              <div class="about-feature"><div class="dot"></div><p>Komisi Etik Hewan dan Penelitian (KEHP) yang independen dan transparan.</p></div>
-            </div>
-            <div style="margin-top:28px"><a href="profil/" class="btn btn-outline">Profil Lengkap RSH</a></div>
-          </div>
-        </div>
-      </div>
-    </section>
 
-    <section class="section-sm" style="background:var(--white)">
-      <div class="container">
-        <div class="kehp-cta">
-          <div>
-            <span class="badge badge-gold" style="margin-bottom:16px">Komisi Etik Hewan dan Penelitian</span>
-            <h2>Butuh Persetujuan Etik?</h2>
-            <p>KEHP RSH Unhas membuka pengajuan persetujuan etik untuk kegiatan penelitian dan pendidikan yang melibatkan hewan.</p>
-          </div>
-          <div class="kehp-cta-actions">
-            <a href="kehp/" class="btn btn-primary">Informasi KEHP</a>
-            <a href="kehp/#formulir" class="btn btn-ghost">Unduh Formulir</a>
-          </div>
-        </div>
+<!-- ════════════════════════════════════════════════════════
+     FOOTER
+════════════════════════════════════════════════════════════ -->
+<footer id="footer">
+  <div class="wrap">
+    <div class="footer-grid">
+
+      <div class="footer-brand">
+        <img src="assets/img/logo-unhas.png" alt="Logo Universitas Hasanuddin">
+        <p>
+          Rumah Sakit Hewan Universitas Hasanuddin adalah fasilitas pendidikan,
+          penelitian, dan layanan kesehatan hewan di bawah naungan
+          Universitas Hasanuddin, Makassar.
+        </p>
       </div>
-    </section>
-  </main>
-  <script src="assets/js/components.js"></script>
+
+      <div class="footer-col">
+        <h5>Navigasi</h5>
+        <ul>
+          <li><a href="/home/">Beranda</a></li>
+          <li><a href="/home/profil/">Profil RSH</a></li>
+          <li><a href="/home/layanan-klinik/">Layanan Kesehatan Hewan</a></li>
+          <li><a href="/home/layanan-lab/">Layanan Hewan Percobaan</a></li>
+          <li><a href="/home/kehp/">Etik Hewan &amp; Penelitian</a></li>
+          <li><a href="/home/kontak/">Kontak &amp; Lokasi</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Komisi Etik (KEHP)</h5>
+        <ul>
+          <li><a href="/home/kehp/">Tentang KEHP</a></li>
+          <li><a href="/home/kehp/#alur">Alur Pengajuan</a></li>
+          <li><a href="/home/formulir/f01.html">Formulir F01</a></li>
+          <li><a href="/home/formulir/f02.html">Formulir F02</a></li>
+          <li><a href="/home/formulir/f05.html">Formulir F05</a></li>
+          <li><a href="mailto:kehp.rshunhas@gmail.com">kehp.rshunhas@gmail.com</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <span>&copy; <span id="year"></span> RSH Universitas Hasanuddin. Hak cipta dilindungi.</span>
+      <a href="https://unhas.ac.id" target="_blank" rel="noopener">Universitas Hasanuddin</a>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/js/main.js"></script>
 </body>
 </html>
