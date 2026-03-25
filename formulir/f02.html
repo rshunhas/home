@@ -1,0 +1,2153 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F02. Pengajuan Peninjauan Kelayakan Etik</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --unhas-red: #980101;
+            --bg-light: #f4f4f9;
+            --text-dark: #333;
+            --border-color: #000;
+        }
+
+        * { box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 950px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        header h1 { color: var(--unhas-red); margin: 0; font-size: 24px; text-transform: uppercase; }
+        header h2 { margin: 5px 0; font-size: 18px; font-weight: 600; }
+        header p { margin: 0; font-size: 14px; }
+
+        .instruction-box {
+            background: #fff8f8;
+            border-left: 5px solid var(--unhas-red);
+            padding: 15px;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+
+        .toolbar {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .btn-import { background: #666; color: white; }
+        .btn-export { background: #2d8a39; color: white; }
+        .btn-print { background: var(--unhas-red); color: white; flex-grow: 1; }
+        button:hover { opacity: 0.9; transform: translateY(-1px); }
+
+        h3 { 
+            background: var(--unhas-red); 
+            color: white; 
+            padding: 10px 15px; 
+            font-size: 18px;
+            margin-top: 30px;
+        }
+
+        .excel-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            background-color: white;
+            table-layout: fixed;
+        }
+
+        .excel-table th, .excel-table td {
+            border: 1px solid var(--border-color);
+            padding: 0;
+            vertical-align: top;
+            font-size: 14px;
+        }
+
+        .table-section-header {
+            background-color: #d9d9d9;
+            text-align: left;
+            font-weight: bold;
+            text-transform: uppercase;
+            padding: 8px !important;
+        }
+
+        .bg-grey { background-color: #f2f2f2; font-weight: bold; padding: 8px !important; }
+        .bg-white-header { font-weight: bold; padding: 8px !important; }
+        .col-num { text-align: center; font-weight: bold; padding-top: 8px !important; }
+        .col-sublabel { padding: 8px !important; }
+        .indent-text { padding-left: 20px !important; font-style: italic; }
+
+        /* Input & Mirror Styling */
+        .col-input input, .col-input select, .col-input textarea {
+            width: 100%;
+            border: none;
+            padding: 8px;
+            outline: none;
+            background: transparent;
+            display: block;
+            box-sizing: border-box;
+            font-family: inherit;
+            font-size: 14px;
+        }
+
+        .col-input textarea {
+            resize: none;
+            overflow: hidden;
+            min-height: 30px;
+        }
+
+        /* Mirror Div (Hanya muncul saat print) */
+        .print-mirror {
+            display: none;
+            padding: 8px;
+            font-size: 14px;
+            white-space: pre-wrap; /* Penting untuk menjaga baris baru */
+            word-wrap: break-word;
+        }
+
+        .col-input input:focus, .col-input select:focus, .col-input textarea:focus {
+            background-color: #fffde7;
+        }
+
+        ::placeholder { color: #aaa; font-style: italic; font-size: 13px; }
+
+        .pernyataan-text {
+            font-size: 14px;
+            text-align: justify;
+            background: #f9f9f9;
+            padding: 20px;
+            border: 1px solid #eee;
+            margin-bottom: 20px;
+        }
+
+        .signature-area {
+            margin-top: 20px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .signature-area label { display: block; font-weight: bold; font-size: 13px; margin-bottom: 5px; }
+        .signature-area input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        @media print {
+            body { padding: 0; background: white; }
+            .container { box-shadow: none; max-width: 100%; padding: 0; border: none; }
+            .toolbar, .instruction-box { display: none !important; }
+            ::placeholder { color: transparent !important; }
+            
+            /* Sembunyikan textarea asli, tunjukkan mirror div */
+            .col-input textarea { display: none !important; }
+            .print-mirror { display: block !important; }
+            
+            h3 { -webkit-print-color-adjust: exact; background-color: var(--unhas-red) !important; color: white !important; }
+            .table-section-header { -webkit-print-color-adjust: exact; background-color: #d9d9d9 !important; }
+            .bg-grey { -webkit-print-color-adjust: exact; background-color: #f2f2f2 !important; }
+        }
+		
+		/* Styling khusus untuk Header Tabel */
+        .header-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            table-layout: fixed;
+			color: #000;
+        }
+
+        .header-table td {
+            border: 1px solid #000;
+            padding: 10px;
+            vertical-align: middle;
+        }
+
+        .header-logo {
+            width: 12%; /* Ruang untuk logo */
+            text-align: center;
+        }
+
+        .header-title {
+            width: 55%;
+            text-align: center;
+        }
+
+        .header-title h1 {
+            font-size: 15px;
+            margin: 0;
+            text-transform: uppercase;
+            color: #000;
+        }
+
+        .header-title p {
+            font-size: 9px;
+            margin: 5px 0 0 0;
+            line-height: 1.2;
+        }
+
+        .header-meta {
+            width: 17%;
+            font-size: 10px;
+			text-align: left;
+        }
+
+        .header-meta table {
+            width: 100%;
+            border: none;
+        }
+
+        .header-meta td {
+            border: none;
+            padding: 1px 0;
+			text-align: left !important;
+			color: #000;
+        }
+		
+		.instruction-box ol {
+			margin-bottom: 0;
+		}
+
+		.instruction-box li {
+			margin-bottom: 8px; /* Memberikan sedikit ruang antar poin agar tidak terlalu rapat */
+		}
+
+		.instruction-box li:last-child {
+			margin-bottom: 0;
+		}
+		
+		/* Media Query untuk Tablet dan Ponsel */
+		@media screen and (max-width: 768px) {
+			.container {
+				padding: 20px; /* Mengurangi padding agar area isian lebih luas */
+				margin: 10px;
+			}
+
+			.header-table, .excel-table {
+				table-layout: auto; /* Mengizinkan tabel menyesuaikan konten */
+				display: block;
+				overflow-x: auto; /* Menambah scroll horizontal jika tabel terlalu lebar */
+			}
+
+			.signature-area {
+				grid-template-columns: 1fr; /* Tanda tangan menjadi atas-bawah, bukan kiri-kanan */
+				gap: 15px;
+			}
+
+			h3 {
+				font-size: 16px;
+				padding: 8px;
+			}
+
+			.header-logo { width: 20%; }
+			.header-title h1 { font-size: 14px; }
+			.header-meta { display: none; } /* Menyembunyikan metadata pada layar sangat kecil untuk kerapian */
+		}
+
+		/* Penyesuaian khusus untuk ponsel sangat kecil */
+		@media screen and (max-width: 480px) {
+			body {
+				padding: 10px;
+			}
+    
+			.btn-import, .btn-export, .btn-print {
+				width: 100%; /* Tombol memenuhi lebar layar */
+				flex: none !important;
+			}
+		}
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+		<table class="header-table">
+			<tr>
+				<td class="header-logo">
+					<img src="img/Logo-Unhas-200px.png" alt="Logo Unhas" style="width: 75px;">
+				</td>	
+        
+				<td class="header-title">
+					<h1>KOMISI ETIK HEWAN DAN PENELITIAN<br>RUMAH SAKIT HEWAN UNIVERSITAS HASANUDDIN</h1>
+					<p>Jl. Al-Markaz Al-Islami Blok IX, Kompleks Unhas Sunu, Kel. Kalukuang, Kec. Tallo, Kota Makassar</p>
+					<div style="margin-top: 10px; font-weight: bold; border-top: 1px solid #000; padding-top: 5px;">
+						PENGAJUAN PENINJAUAN KELAYAKAN ETIK
+					</div>
+				</td>
+        
+				<td class="header-meta">
+					<table>
+						<tr>
+							<td>No.</td>
+							<td>: KEHP-RSH-F02</td>
+						</tr>
+						<tr>
+							<td>Versi</td>
+							<td>: 4.0</td>
+						</tr>
+						<tr>
+							<td>Tgl. Rev</td>
+							<td>: 10-01-2026</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+		</table>
+    </header>
+
+    <div class="instruction-box">
+        <strong>Petunjuk:</strong> Isi formulir di bawah ini. Jika Anda sudah pernah mengisi formulir ini dan menyimpan datanya berupa file .json, Anda dapat membuka file json tersebut agar semua isian terisi otomatis.
+    </div>
+
+    <div class="toolbar" style="justify-content: center;">
+        <input type="file" id="importFile" style="display:none" onchange="importJSON(event)">
+        <button type="button" class="btn-import" onclick="document.getElementById('importFile').click()">📂 Buka/unggah draf (.json)</button>
+    </div>
+
+    <form id="ethicsForm">
+        <h3>Bagian I: Pernyataan</h3>
+        <div class="pernyataan-text">
+            Saya, yang bertanda tangan di bawah ini, menyatakan bahwa:<br>
+            a. saya telah memahami prinsip-prinsip etis yang mengatur penggunaan hewan, jaringan hewan, dan/atau produk asal hewan lainnya, termasuk manusia yang terlibat di dalamnya, dalam rangka pelaksanaan pendidikan, pelatihan, pengujian, atau penelitian yang saya ajukan;<br>
+            b. saya bertanggung jawab atas semua prosedur yang dilakukan oleh personel yang terlibat dalam kegiatan pendidikan, pelatihan, pengujian, atau penelitian dan untuk memastikan bahwa semua individu yang terlibat memiliki kualifikasi, pengalaman, dan pelatihan yang memadai untuk melakukan prosedur yang diperlukan; dan<br>
+            c. saya akan melaksanakan semua prosedur sebagaimana yang tercantum dalam protokol yang telah disetujui atau disahkan oleh Komite Etik Hewan dan Penelitian (KEHP) Rumah Sakit Hewan Universitas Hasanuddin.
+        </div>
+
+        <div class="signature-area">
+            <div>
+                <label>Isian Kota dan Tanggal:</label>
+                <input type="text" id="pernyataan_tgl" placeholder="Contoh: Makassar, 5 Januari 2026">
+            </div>
+            <div>
+                <label>Nama Pemohon:</label>
+                <input type="text" id="pernyataan_nama" placeholder="Tuliskan nama lengkap (termasuk gelar)">
+            </div>
+        </div>
+
+        <h3>Bagian II: Uraian Kegiatan</h3>
+        
+        <table class="excel-table" style="margin-top: 20px;">
+            <colgroup>
+                <col style="width: 40px;"> 
+                <col style="width: 38%;"> 
+                <col style="width: auto;"> 
+            </colgroup>
+            
+            <thead>
+                <tr>
+                    <th colspan="3" class="table-section-header">A. Informasi Umum</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td rowspan="5" class="col-num">1.</td>
+					<td colspan="2" class="bg-white-header">
+						Informasi pemohon
+						<br><span style="font-size: 12px; font-weight: normal; font-style: italic;"><strong>Penting:</strong> Nama yang dituliskan di bagian ini akan dicantumkan dalam dokumen <strong>Persetujuan Etik (Ethical Clearance)</strong> sebagai penanggung jawab kegiatan.</span>
+					</td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel">a. Nama lengkap</td>
+                    <td class="col-input"><input type="text" id="nama_lengkap" placeholder="Tuliskan nama lengkap pemohon"></td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel">b. Jabatan</td>
+                    <td class="col-input"><input type="text" id="jabatan" placeholder="Contoh: Dosen, peneliti, atau mahasiswa S1"></td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel">c. No. telepon</td>
+                    <td class="col-input"><input type="text" id="no_telp" placeholder="Contoh: 081...."></td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel">d. Surel</td>
+                    <td class="col-input"><input type="email" id="email" placeholder="Contoh: nama@unhas.ac.id"></td>
+                </tr>
+
+
+                <tr>
+                    <td rowspan="11" class="col-num">2.</td>
+                    <td colspan="2" class="bg-white-header">Rincian kegiatan</td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel">a. Jenis kegiatan</td>
+                    <td class="col-input">
+                        <select id="jenis_kegiatan">
+                            <option value="">-- Pilih --</option>
+                            <option value="Pendidikan">Pendidikan</option>
+							<option value="Penlatihan">Pelatihan/lokakarya</option>
+							<option value="Penelitian-dosen">Penelitian dosen/peneliti profesional</option>
+                            <option value="Penelitian-s1">Penelitian mahasiswa S1/profesi</option>
+							<option value="Penelitian-s2">Penelitian mahasiswa S2</option>
+							<option value="Penelitian-s3">Penelitian mahasiswa S3</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel">b. Judul kegiatan</td>
+                    <td class="col-input">
+                        <textarea id="judul_kegiatan" placeholder="Tuliskan judul lengkap kegiatan"></textarea>
+                        <div id="mirror_judul_kegiatan" class="print-mirror"></div>
+                    </td>
+                </tr>
+				<tr>
+                    <td class="col-sublabel">c. Nama institusi penyelenggara</td>
+                    <td class="col-input">
+						<textarea id="nama_institusi" placeholder="Contoh: Prodi Kedokteran Hewan, Fakultas Kedokteran Unhas"></textarea>
+						<div id="mirror_nama_institusi" class="print-mirror"></div>
+					</td>	
+                </tr>
+				<tr>
+                    <td class="col-sublabel">d. Alamat institusi penyelenggara</td>
+                    <td class="col-input">
+                        <textarea id="alamat_institusi" placeholder="Tuliskan alamat lengkap institusi penyelenggara"></textarea>
+                        <div id="mirror_alamat_institusi" class="print-mirror"></div>
+                    </td>
+                </tr>
+				<tr>
+                    <td class="col-sublabel">e. Apakah kegiatan ini merupakan perwujudan dari kerja sama atau kemitraan antarinstitusi?</td>
+                    <td class="col-input">
+                        <select id="kemitraan">
+                            <option value="">-- Pilih --</option>
+                            <option value="Tidak">Tidak (lanjutkan ke huruf f)</option>
+                            <option value="Ya - Nasional">Ya - kemitraan tingkat nasional</option>
+                            <option value="Ya - Internasional">Ya - kemitraan tingkat internasional</option>
+                            <option value="Ya - Personel Asing">Ya - melibatkan personel asing</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel indent-text">Jika ya, uraikan jenis kemitraan:</td>
+                    <td class="col-input"><input type="text" id="uraian_kemitraan" placeholder="Tuliskan nama mitra dan bentuk kerja sama"></td>
+                </tr>
+				<tr>
+					<td class="col-sublabel">f. Tempat pelaksanaan</td>
+    				<td class="col-input">
+    				    <textarea id="tempat_kegiatan" placeholder="Tuliskan semua lokasi pelaksanaan kegiatan"></textarea>
+    				    <div id="mirror_tempat_kegiatan" class="print-mirror"></div>
+    				</td>
+				</tr>
+                <tr>
+                    <td class="col-sublabel">g. Durasi/rentang waktu pelaksanaan</td>
+                    <td class="col-input"><input type="text" id="durasi_kegiatan" placeholder="Contoh: Enam bulan (Januari s.d. Juni 2026)"></td>
+                </tr>
+                <tr>
+                <tr>
+                    <td class="col-sublabel">h. Sumber dan jumlah dana</td>
+                    <td class="col-input"><input type="text" id="sumber_dana" placeholder="Contoh: Hibah LPPM Unhas, Rp10.000.000"></td>
+                </tr>
+				<tr>
+                    <td rowspan="3" class="col-num">3.</td>
+                    <td colspan="2" class="bg-white-header">Keterlibatan hewan hidup</td>
+                </tr>
+				<tr>
+                    <td class="col-sublabel">a. Apakah kegiatan ini akan melibatkan atau menggunakan hewan hidup?</td>
+                    <td class="col-input">
+                        <select id="melibatkan_hewan">
+                            <option value="">-- Pilih --</option>
+                            <option value="Ya">Ya (lanjutkan ke huruf b)</option>
+                            <option value="Tidak">Tidak (lanjutkan ke no. 4)</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel">b. Jenis kegiatan yang melibatkan hewan</td>
+                    <td class="col-input">
+                        <select id="jenis_hewan_hidup">
+                            <option value="">-- Pilih --</option>
+                            <option value="Pendidikan/pelatihan">Pendidikan/pelatihan</option>
+                            <option value="Penelitian/pengujian">Penelitian/pengujian/produksi bahan biologis</option>
+                            <option value="Penangkaran">Penangkaran/pengembangbiakan</option>
+                            <option value="Lainnya">Lainnya</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-num">4.</td>
+                    <td class="bg-white-header">Apakah protokol ini pernah diajukan ke komisi etik lain?</td>
+                    <td class="col-input">
+                        <select id="pernah_diajukan">
+                            <option value="">-- Pilih --</option>
+                            <option value="Tidak">Tidak</option>
+                            <option value="Ya">Ya (lampirkan surat keterangan)</option>
+                        </select>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+<table class="excel-table" style="margin-top: 20px;">
+            <colgroup>
+                <col style="width: 45px;"> 
+                <col style="width: 38%;"> 
+                <col style="width: auto;"> 
+            </colgroup>
+            <thead>
+                <tr>
+                    <th colspan="3" class="table-section-header">B. Ringkasan Kegiatan</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="col-num">1.</td>
+                    <td class="bg-white-header">Latar belakang</td>
+                    <td class="col-input">
+                        <textarea id="ringkasan_latar_belakang" placeholder="Uraikan secara ringkas latar belakang kegiatan Anda"></textarea>
+                        <div id="mirror_ringkasan_latar_belakang" class="print-mirror"></div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-num">2.</td>
+                    <td class="bg-white-header">Tujuan</td>
+                    <td class="col-input">
+                        <textarea id="tujuan_kegiatan" placeholder="Uraikan secara ringkas tujuan yang ingin dicapai"></textarea>
+                        <div id="mirror_tujuan_kegiatan" class="print-mirror"></div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-num">3.</td>
+                    <td class="bg-white-header">Manfaat dan luaran</td>
+                    <td class="col-input">
+                        <textarea id="luaran_kegiatan" placeholder="Uraikan manfaat, luaran, dan/atau produk akhir dari kegiatan ini"></textarea>
+                        <div id="mirror_luaran_kegiatan" class="print-mirror"></div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <table class="excel-table" style="margin-top: 20px;">
+            <colgroup>
+                <col style="width: 45px;"> 
+                <col style="width: 38%;"> 
+                <col style="width: auto;"> 
+            </colgroup>
+            <thead>
+                <tr>
+                    <th colspan="3" class="table-section-header">C. Kualifikasi Personel</th>
+                </tr>
+                <tr>
+                    <td colspan="3" style="padding: 8px; font-size: 12px; font-style: italic; background-color: #f9f9f9; border: 1px solid #000;">
+                        Mohon tuliskan semua personel yang akan terlibat dalam kegiatan atau proyek ini dan perannya masing-masing, termasuk personel yang belum berpengalaman dalam prosedur yang akan dilakukan, belum menerima pelatihan, atau belum pernah bekerja dengan spesies hewan yang akan digunakan.
+                    </td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td rowspan="6" class="col-num">1.</td>
+                    <td colspan="2" class="bg-white-header">
+                        Pemimpin atau penanggung jawab kegiatan
+						<br><span style="font-size: 12px; font-weight: normal; font-style: italic;">Tuliskan nama pemimpin atau penanggung jawab kegiatan, misalnya peneliti utama (principal investigator) atau dosen pembimbing.</span>
+						</td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel">a. Nama lengkap</td>
+                    <td class="col-input"><input type="text" id="c1_nama" placeholder="Tuliskan nama pemimpin atau penanggung jawab kegiatan"></td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel">b. Jabatan</td>
+                    <td class="col-input"><input type="text" id="c1_jabatan" placeholder="Contoh: Dosen di ... "></td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel">c. Institusi</td>
+                    <td class="col-input"><input type="text" id="c1_institusi" placeholder="Tuliskan nama institusi asal"></td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel">d. Kualifikasi yang relevan</td>
+                    <td class="col-input">
+                        <textarea id="c1_kualifikasi" placeholder="Tuliskan kualifikasi atau kompetensi yang relevan"></textarea>
+                        <div id="mirror_c1_kualifikasi" class="print-mirror"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel">e. Pengalaman terkait prosedur</td>
+                    <td class="col-input">
+                        <textarea id="c1_pengalaman" placeholder="Tuliskan pengalaman terkait prosedur penelitian atau penggunaan hewan"></textarea>
+                        <div id="mirror_c1_pengalaman" class="print-mirror"></div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-num">2.</td>
+                    <td class="bg-white-header">Keberadaan dokter hewan pendamping (<i>attending veterinarian</i>)</td>
+                    <td class="col-input">
+                        <textarea id="c2_dokter_hewan" placeholder="Jika kegiatan melibatkan hewan hidup, tuliskan nama dokter hewan pendamping"></textarea>
+                        <div id="mirror_c2_dokter_hewan" class="print-mirror"></div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-num">3.</td>
+                    <td colspan="2" class="bg-white-header">
+                        Personel kunci
+                        <br><span style="font-size: 12px; font-weight: normal; font-style: italic;">Tuliskan semua peneliti (termasuk rekan peneliti atau mahasiswa bimbingan) dan/atau semua teknisi yang terlibat langsung dalam menangani hewan hidup. Jika kegiatan termasuk unsur pendidikan (misalnya praktikum atau pelatihan), Anda tidak perlu menulis nama semua peserta yang terlibat; cukup isi satu baris dengan unsur asisten praktikum dan baris lainnya dengan praktikan.</span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <table class="excel-table" style="border-top: none;">
+    <colgroup>
+        <col style="width: 45px;"> <col style="width: 25%;">  <col style="width: 20%;">  <col style="width: auto;"> </colgroup>
+    <thead>
+        <tr class="bg-grey">
+            <th style="font-size: 12px; padding: 5px !important; text-align: center;">No</th>
+            <th style="font-size: 12px; padding: 5px !important; text-align: center;">Nama lengkap</th>
+            <th style="font-size: 12px; padding: 5px !important; text-align: center;">Peran</th>
+            <th style="font-size: 12px; padding: 5px !important; text-align: center;">Kualifikasi dan pengalaman terkait prosedur</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td class="col-num">1</td>
+            <td class="col-input"><input type="text" id="c4_nama_1" placeholder="Tuliskan nama personel 1"></td>
+            <td class="col-input"><input type="text" id="c4_peran_1" placeholder="Contoh: Peneliti"></td>
+            <td class="col-input">
+                <textarea id="c4_kual_1" placeholder="Tuliskan keahlian dan pengalaman spesifik"></textarea>
+                <div id="mirror_c4_kual_1" class="print-mirror"></div>
+            </td>
+        </tr>
+        <tr>
+            <td class="col-num">2</td>
+            <td class="col-input"><input type="text" id="c4_nama_2" placeholder="Tuliskan nama personel 2"></td>
+            <td class="col-input"><input type="text" id="c4_peran_2" placeholder="Peran"></td>
+            <td class="col-input">
+                <textarea id="c4_kual_2" placeholder="Tuliskan keahlian dan pengalaman spesifik"></textarea>
+                <div id="mirror_c4_kual_2" class="print-mirror"></div>
+            </td>
+        </tr>
+        <tr>
+            <td class="col-num">3</td>
+            <td class="col-input"><input type="text" id="c4_nama_3" placeholder="Tuliskan nama personel 3"></td>
+            <td class="col-input"><input type="text" id="c4_peran_3" placeholder="Peran"></td>
+            <td class="col-input">
+                <textarea id="c4_kual_3" placeholder="Tuliskan keahlian dan pengalaman spesifik"></textarea>
+                <div id="mirror_c4_kual_3" class="print-mirror"></div>
+            </td>
+        </tr>
+        <tr>
+            <td class="col-num">4</td>
+            <td class="col-input"><input type="text" id="c4_nama_4" placeholder="Tuliskan nama personel 4"></td>
+            <td class="col-input"><input type="text" id="c4_peran_4" placeholder="Peran"></td>
+            <td class="col-input">
+                <textarea id="c4_kual_4" placeholder="Tuliskan keahlian dan pengalaman spesifik"></textarea>
+                <div id="mirror_c4_kual_4" class="print-mirror"></div>
+            </td>
+        </tr>
+        <tr>
+            <td class="col-num">5</td>
+            <td class="col-input"><input type="text" id="c4_nama_5" placeholder="Tuliskan nama personel 5"></td>
+            <td class="col-input"><input type="text" id="c4_peran_5" placeholder="Peran"></td>
+            <td class="col-input">
+                <textarea id="c4_kual_5" placeholder="Tuliskan keahlian dan pengalaman spesifik"></textarea>
+                <div id="mirror_c4_kual_5" class="print-mirror"></div>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<table class="excel-table" style="margin-top: 20px;">
+            <colgroup>
+                <col style="width: 45px;"> 
+                <col style="width: 38%;"> 
+                <col style="width: auto;"> 
+            </colgroup>
+            <thead>
+                <tr>
+                    <th colspan="3" class="table-section-header">D. Penanganan Data dan Subjek Manusia</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td rowspan="3" class="col-num">1.</td>
+                    <td colspan="2" class="bg-white-header">Jenis data</td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel">a. Apa jenis data yang dihasilkan, dikumpulkan, dan/atau diolah pada kegiatan ini?</td>
+                    <td class="col-input">
+                        <select id="d1a_jenis_data">
+                            <option value="">-- Pilih --</option>
+                            <option value="Data primer">Data primer</option>
+                            <option value="Data sekunder">Data sekunder</option>
+                            <option value="Data primer sekaligus data sekunder">Data primer sekaligus data sekunder</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel">b. Jika data yang dikumpulkan mencakup data sekunder, uraikan sumber data dan cara memperolehnya</td>
+                    <td class="col-input">
+                        <textarea id="d1b_sumber_sekunder" placeholder="Uraikan sumber dan cara memperoleh data sekunder"></textarea>
+                        <div id="mirror_d1b_sumber_sekunder" class="print-mirror"></div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td rowspan="9" class="col-num">2.</td>
+                    <td colspan="2" class="bg-white-header">Keterlibatan manusia</td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel">a. Apakah kegiatan ini melibatkan manusia sebagai pemilik hewan, subjek data, sumber data, dan/atau responden?</td>
+                    <td class="col-input">
+                        <select id="d2a_melibatkan_manusia">
+                            <option value="">-- Pilih --</option>
+                            <option value="Ya">Ya</option>
+                            <option value="Tidak">Tidak (lanjutkan ke nomor 3)</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel">b. Jelaskan keterlibatan manusia dalam kegiatan ini</td>
+                    <td class="col-input">
+                        <textarea id="d2b_uraian_manusia" placeholder="Jelaskan peran manusia sebagai pemilik hewan, subjek data, sumber data, dan/atau responden secara spesifik"></textarea>
+                        <div id="mirror_d2b_uraian_manusia" class="print-mirror"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel">c. Apakah ada dokumen persetujuan setelah penjelasan (<i>informed consent</i>) dari subjek manusia?</td>
+                    <td class="col-input">
+                        <select id="d2c_informed_consent">
+                            <option value="">-- Pilih --</option>
+                            <option value="Ada">Ada (lampirkan dokumennya)</option>
+                            <option value="Tidak ada">Tidak ada</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel">d. Jelaskan target populasi, kriteria inklusi, dan kriteria eksklusi untuk subjek manusia</td>
+                    <td class="col-input">
+                        <textarea id="d2d_kriteria_populasi" placeholder="Uraikan karakteristik manusia yang menjadi target populasi, termasuk kriteria inklusi dan kriteria eksklusinya"></textarea>
+                        <div id="mirror_d2d_kriteria_populasi" class="print-mirror"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel">e. Jelaskan cara penentuan jumlah sampel dan metode pemilihan sampel subjek manusia</td>
+                    <td class="col-input">
+                        <textarea id="d2e_desain_sampel" placeholder="Uraikan penentuan jumlah sampel dan metode pemilihan sampel subjek manusia"></textarea>
+                        <div id="mirror_d2e_desain_sampel" class="print-mirror"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel">f. Jelaskan hubungan atau relasi antara pelaksana kegiatan dengan subjek manusia</td>
+                    <td class="col-input">
+                        <textarea id="d2f_relasi_peneliti" placeholder="Uraikan hubungan antara pelaksana kegiatan dan subjek manusia, misalnya sesama mahasiswa, peneliti dan pemilik hewan, atau tidak ada relasi khusus"></textarea>
+                        <div id="mirror_d2f_relasi_peneliti" class="print-mirror"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel">g. Apakah ada kompensasi yang diberikan oleh pelaksana kegiatan kepada subjek manusia?</td>
+                    <td class="col-input">
+                        <select id="d2g_kompensasi">
+                            <option value="">-- Pilih --</option>
+                            <option value="Ada">Ada</option>
+                            <option value="Tidak ada">Tidak ada</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel indent-text">Jika ada, jelaskan jenis kompensasi dan cara pemberiannya:</td>
+                    <td class="col-input">
+                        <textarea id="d2g_uraian_kompensasi" placeholder="Uraikan bentuk kompensasi (contoh: uang, barang) dan cara pemberiannya (contoh: semua subjek atau hanya subjek tertentu secara acak)"></textarea>
+                        <div id="mirror_d2g_uraian_kompensasi" class="print-mirror"></div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td rowspan="11" class="col-num">3.</td>
+                    <td colspan="2" class="bg-white-header">Penanganan data</td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel">a. Apakah data yang dikumpulkan mengandung informasi sensitif, informasi pribadi seseorang, atau informasi tentang hewan milik individu tertentu?</td>
+                    <td class="col-input">
+                        <select id="d3a_data_sensitif">
+                            <option value="">-- Pilih --</option>
+                            <option value="Ya">Ya</option>
+                            <option value="Tidak">Tidak</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel indent-text">Jika ya, tolong uraikan:</td>
+                    <td class="col-input">
+                        <textarea id="d3a_uraian_sensitif" placeholder="Tuliskan apa saja informasi sensitif yang dikumpulkan, misalnya nama, umur, nomor ponsel, alamat, dsb."></textarea>
+                        <div id="mirror_d3a_uraian_sensitif" class="print-mirror"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel">b. Apakah data akan disimpan dalam sistem digital, baik secara daring atau luring?</td>
+                    <td class="col-input">
+                        <select id="d3b_simpan_digital">
+                            <option value="">-- Pilih --</option>
+                            <option value="Ya">Ya</option>
+                            <option value="Tidak">Tidak</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel indent-text">Jika ya, tolong uraikan:</td>
+                    <td class="col-input">
+                        <textarea id="d3b_uraian_digital" placeholder="Tuliskan platform atau media penyimpanan yang digunakan"></textarea>
+                        <div id="mirror_d3b_uraian_digital" class="print-mirror"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel">c. Siapa saja pihak yang dapat mengakses data?</td>
+                    <td class="col-input">
+                        <textarea id="d3c_akses_data" placeholder="Uraikan siapa saja personel yang dapat mengakses, memodifikasi, memindahkan, dan menyimpan data yang dihasilkan dari kegiatan ini"></textarea>
+                        <div id="mirror_d3c_akses_data" class="print-mirror"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel">d. Bagaimana strategi yang digunakan untuk menjaga kerahasiaan dan keamanan data?</td>
+                    <td class="col-input">
+                        <textarea id="d3d_keamanan_data" placeholder="Contoh: enkripsi, anonimisasi, atau penyimpanan fisik terkunci"></textarea>
+                        <div id="mirror_d3d_keamanan_data" class="print-mirror"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel">e. Apakah data akan dibagikan kepada pihak ketiga atau dipublikasikan secara terbuka?</td>
+                    <td class="col-input">
+                        <select id="d3e_bagi_data">
+                            <option value="">-- Pilih --</option>
+                            <option value="Ya">Ya</option>
+                            <option value="Tidak">Tidak</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel indent-text">Jika ya, tolong uraikan:</td>
+                    <td class="col-input">
+                        <textarea id="d3e_uraian_bagi_data" placeholder="Uraikan jenis data yang akan dibagikan dan kepada siapa data itu dibagikan"></textarea>
+                        <div id="mirror_d3e_uraian_bagi_data" class="print-mirror"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel">f. Apakah kegiatan ini berpotensi menimbulkan dampak sosial, budaya, atau politik?</td>
+                    <td class="col-input">
+                        <select id="d3f_dampak_sosial">
+                            <option value="">-- Pilih --</option>
+                            <option value="Ya">Ya</option>
+                            <option value="Tidak">Tidak</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel indent-text">Jika ya, tolong uraikan:</td>
+                    <td class="col-input">
+                        <textarea id="d3f_uraian_dampak" placeholder="Uraikan potensi dampak sosial, budaya, atau politik yang mungkin timbul dan cara mitigasinya"></textarea>
+                        <div id="mirror_d3f_uraian_dampak" class="print-mirror"></div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+<table class="excel-table" style="margin-top: 20px;">
+            <colgroup>
+                <col style="width: 45px;"> 
+                <col style="width: 38%;"> 
+                <col style="width: auto;"> 
+            </colgroup>
+            <thead>
+                <tr>
+                    <th colspan="3" class="table-section-header">E. Keterlibatan Hewan</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="col-num">1.</td>
+                    <td class="col-sublabel"><b>Apakah kegiatan ini melibatkan penggunaan hewan hidup?</b> (jika tidak, bagian E dan F dikosongkan dan pengisian formulir ini selesai)</td>
+                    <td class="col-input">
+                        <select id="e1_hewan_hidup">
+                            <option value="">-- Pilih --</option>
+                            <option value="Ya">Ya – ada hewan hidup yang digunakan atau dimanfaatkan</option>
+                            <option value="Tidak">Tidak – kegiatan ini sama sekali tidak melibatkan hewan hidup</option>
+                        </select>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td rowspan="2" class="col-num">2.</td>
+                    <td colspan="2" class="bg-white-header">Alasan penggunaan hewan hidup (prinsip <i>replacement</i>)</td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel">a. Jelaskan perlunya menggunakan hewan hidup dalam kegiatan ini, terutama jika metode alternatif (penggunaan non-hewan) telah tersedia</td>
+                    <td class="col-input">
+                        <textarea id="e2a_replacement" placeholder="Uraikan justifikasi prinsip replacement"></textarea>
+                        <div id="mirror_e2a_replacement" class="print-mirror"></div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td rowspan="8" class="col-num">3.</td>
+                    <td colspan="2" class="bg-white-header">Karakteristik hewan</td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel">a. Jika relevan, jelaskan target populasi, kriteria inklusi, dan kriteria eksklusi untuk hewan</td>
+                    <td class="col-input">
+                        <textarea id="e3a_populasi_hewan" placeholder="Uraikan kriteria pemilihan hewan"></textarea>
+                        <div id="mirror_e3a_populasi_hewan" class="print-mirror"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel">b. Spesies hewan</td>
+                    <td class="col-input">
+						<textarea id="e3b_spesies" placeholder="Tuliskan spesies hewan yang dilibatkan"></textarea>
+						<div id="mirror_e3b_spesies" class="print-mirror"></div>
+					</td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel">c. Subspesies, <i>breed</i>, atau <i>strain</i> hewan (jika relevan)</td>
+                    <td class="col-input"><input type="text" id="e3c_subspesies" placeholder="Tuliskan subspesies, breed, atau strain hewan yang dilibatkan"></td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="col-sublabel">d. Karakteristik lain (jika relevan):</td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel indent-text">(1) Jenis kelamin</td>
+                    <td class="col-input"><input type="text" id="e3d1_sex" placeholder="Tuliskan jenis kelamin hewan"></td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel indent-text">(2) Umur</td>
+                    <td class="col-input"><input type="text" id="e3d2_umur" placeholder="Tuliskan umur hewan"></td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel indent-text">(3) Berat badan</td>
+                    <td class="col-input"><input type="text" id="e3d3_bb" placeholder="Tuliskan berat badan hewan"></td>
+                </tr>
+
+                <tr>
+                    <td rowspan="3" class="col-num">4.</td>
+                    <td colspan="2" class="bg-white-header">Jumlah hewan (prinsip <i>reduction</i>)</td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel">a. Jumlah keseluruhan hewan</td>
+                    <td class="col-input"><input type="text" id="e4a_jumlah_total" placeholder="Tuliskan keseluruhan jumlah hewan hidup yang terlibat"></td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel">b. Justifikasi penentuan jumlah hewan (alasan tidak menggunakan lebih sedikit hewan)</td>
+                    <td class="col-input">
+                        <textarea id="e4b_justifikasi_jumlah" placeholder="Uraikan justifikasi prinsip reduction, termasuk jika ada rumus yang digunakan untuk menghitung jumlah hewan yang dilibatkan"></textarea>
+                        <div id="mirror_e4b_justifikasi_jumlah" class="print-mirror"></div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td rowspan="3" class="col-num">5.</td>
+                    <td colspan="2" class="bg-white-header">Asal-usul dan kepemilikan hewan</td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel">a. Asal-usul hewan</td>
+                    <td class="col-input">
+                        <select id="e5a_asal_hewan">
+                            <option value="">-- Pilih --</option>
+                            <option value="Dimiliki oleh mahasiswa">Dimiliki oleh mahasiswa</option>
+                            <option value="Dimiliki oleh dosen">Dimiliki oleh dosen</option>
+                            <option value="Dimiliki oleh institusi pendidikan">Dimiliki oleh institusi pendidikan</option>
+                            <option value="Dipinjam atau diberi izin oleh pemilik hewan">Dipinjam atau diberi izin oleh pemilik hewan</option>
+                            <option value="Dibeli dari pemasok komersial">Dibeli dari pemasok komersial</option>
+                            <option value="Ditangkap sebagai hewan jalanan">Ditangkap sebagai hewan jalanan atau hewan tak bertuan</option>
+                            <option value="Lainnya">Lainnya</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel">b. Jika hewan dimiliki seseorang, apakah ada dokumen <i>informed consent</i> yang akan ditandatangani pemilik?</td>
+                    <td class="col-input">
+                        <select id="e5b_consent_pemilik">
+                            <option value="">-- Pilih --</option>
+                            <option value="Ada">Ada (lampirkan dokumennya)</option>
+                            <option value="Tidak ada">Tidak ada</option>
+                        </select>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td rowspan="6" class="col-num">6.</td>
+                    <td colspan="2" class="bg-white-header">Prosedur yang diterapkan terhadap hewan</td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel">a. Ringkasan tindakan atau prosedur yang akan dilakukan terhadap hewan</td>
+                    <td class="col-input">
+                        <textarea id="e6a_ringkasan_prosedur" placeholder="Jelaskan prosedur teknis secara ringkas"></textarea>
+                        <div id="mirror_e6a_ringkasan_prosedur" class="print-mirror"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel">b. Apakah kegiatan ini merupakan pengulangan dari kegiatan serupa sebelumnya?</td>
+                    <td class="col-input">
+                        <select id="e6b_pengulangan">
+                            <option value="">-- Pilih --</option>
+                            <option value="Ya">Ya</option>
+                            <option value="Tidak">Tidak</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel indent-text">Jika ya, jelaskan alasan perlunya pengulangan</td>
+                    <td class="col-input">
+                        <textarea id="e6b_uraian_pengulangan" placeholder="Uraikan alasan perlunya pengulangan kegiatan serupa (misalnya praktikum atau penelitian yang diulang)"></textarea>
+                        <div id="mirror_e6b_uraian_pengulangan" class="print-mirror"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel">c. Apakah hewan yang akan digunakan pada kegiatan ini pernah digunakan pada kegiatan lain?</td>
+                    <td class="col-input">
+                        <select id="e6c_pernah_digunakan">
+                            <option value="">-- Pilih --</option>
+                            <option value="Ya">Ya</option>
+                            <option value="Tidak">Tidak</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel indent-text">Jika ya, tuliskan prosedur sebelumnya dan potensi pengaruhnya</td>
+                    <td class="col-input">
+                        <textarea id="e6c_uraian_sebelumnya" placeholder="Uraikan prosedur yang pernah dialami hewan ini sebelumnya. Apakah prosedur tersebut berpengaruh terhadap kegiatan yang diajukan ini?"></textarea>
+                        <div id="mirror_e6c_uraian_sebelumnya" class="print-mirror"></div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+<table class="excel-table" style="margin-top: 20px;">
+            <colgroup>
+                <col style="width: 45px;"> 
+                <col style="width: 38%;"> 
+                <col style="width: auto;"> 
+            </colgroup>
+            <thead>
+                <tr>
+                    <th colspan="3" class="table-section-header">F. Prosedur Penggunaan atau Pemanfaatan Hewan</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td rowspan="3" class="col-num">1.</td>
+                    <td colspan="2" class="bg-white-header">Durasi waktu penggunaan hewan</td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel">a. Total durasi keterlibatan hewan</td>
+                    <td class="col-input"><input type="text" id="f1a_total_durasi" placeholder="Contoh: 14 hari selama 2 jam per sesi"></td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel">b. Berikan justifikasi mengapa durasi ini diperlukan</td>
+                    <td class="col-input">
+                        <textarea id="f1b_justifikasi_durasi" placeholder="Uraikan mengapa durasi ini diperlukan dan mengapa tidak lebih singkat"></textarea>
+                        <div id="mirror_f1b_justifikasi_durasi" class="print-mirror"></div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td rowspan="14" class="col-num">2.</td>
+                    <td colspan="2" class="bg-white-header">Kondisi pemeliharaan hewan</td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel">a. Apakah hewan dipelihara dalam kandang, wadah, atau tempat khusus?</td>
+                    <td class="col-input">
+                        <select id="f2a_wadah_khusus">
+                            <option value="">-- Pilih --</option>
+                            <option value="Ya">Ya (lanjutkan ke 2.b.)</option>
+                            <option value="Tidak">Tidak (lanjutkan ke 2.e.)</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel">b. Deskripsikan jenis atau karakteristik kandang atau wadah yang digunakan</td>
+                    <td class="col-input">
+                        <textarea id="f2b_deskripsi_wadah" placeholder="Contoh: kandang dari besi, sangkar dari kayu, akuarium dari kaca"></textarea>
+                        <div id="mirror_f2b_deskripsi_wadah" class="print-mirror"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel">c. Berapa luas ukuran kandang atau wadah?</td>
+                    <td class="col-input"><input type="text" id="f2c_luas_wadah" placeholder="Contoh: panjang 30 cm, lebar, 20 cm, tinggi 20 cm"></td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel">d. Berapa banyak hewan dalam satu kandang atau wadah?</td>
+                    <td class="col-input"><input type="text" id="f2d_jumlah_per_wadah" placeholder="Contoh: Empat ekor hewan per wadah"></td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="col-sublabel">e. Jelaskan penyediaan fasilitas pendukung dan kondisinya:</td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel indent-text">(1) Wadah pakan</td>
+                    <td class="col-input">
+                        <textarea id="f2e1_pakan" placeholder="Contoh: Terbuat dari plastik, berdiameter 10 cm"></textarea>
+                        <div id="mirror_f2e1_pakan" class="print-mirror"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel indent-text">(2) Wadah air minum</td>
+                    <td class="col-input">
+                        <textarea id="f2e2_minum" placeholder="Contoh: Terbuat dari plastik, berdiameter 10 cm"></textarea>
+                        <div id="mirror_f2e2_minum" class="print-mirror"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel indent-text">(3) Lantai atau alas</td>
+                    <td class="col-input">
+                        <textarea id="f2e3_lantai" placeholder="Contoh: Alas sekam dengan tebal 2-3 cm yang diganti tiap hari"></textarea>
+                        <div id="mirror_f2e3_lantai" class="print-mirror"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel indent-text">(4) Tempat beristirahat</td>
+                    <td class="col-input">
+                        <textarea id="f2e4_istirahat" placeholder="Jelaskan apakah misalnya hewan dapat beristirahat di mana saja dalam kandang atau ada tempat khusus dalam kandang untuk beristirahat"></textarea>
+                        <div id="mirror_f2e4_istirahat" class="print-mirror"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel indent-text">(5) Pencahayaan</td>
+                    <td class="col-input">
+                        <textarea id="f2e5_cahaya" placeholder="Jelaskan paparan sinar matahari dan lampu (misalnya pada malam hari)"></textarea>
+                        <div id="mirror_f2e5_cahaya" class="print-mirror"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel indent-text">(6) Ventilasi dan aliran udara</td>
+                    <td class="col-input">
+                        <textarea id="f2e6_ventilasi" placeholder="Jelaskan ventilasi dan aliran udara, termasuk seberapa terbuka atau tertutup lingkungan hidup hewan"></textarea>
+                        <div id="mirror_f2e6_ventilasi" class="print-mirror"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel">f. Jelaskan perlindungan hewan dari faktor eksternal</td>
+                    <td class="col-input">
+                        <textarea id="f2f_perlindungan_eksternal" placeholder="Jelaskan bagaimana hewan terlindung dari cuaca, hewan lain, dan manusia selain personel kegiatan"></textarea>
+                        <div id="mirror_f2f_perlindungan_eksternal" class="print-mirror"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel">g. Seberapa sering hewan akan diperiksa untuk memastikan kesejahteraannya terpenuhi?</td>
+                    <td class="col-input">
+                        <textarea id="f2g_frekuensi_pemeriksaan" placeholder="Contoh: dua kali sehari (pagi dan sore)"></textarea>
+                        <div id="mirror_f2g_frekuensi_pemeriksaan" class="print-mirror"></div>
+                    </td>
+                </tr>
+            <tr>
+                    <td rowspan="21" class="col-num">3.</td>
+                    <td colspan="2" class="bg-white-header">Pemberian pakan dan air minum selama kegiatan penggunaan hewan</td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel">a. Apakah hewan akan diberikan pakan?</td>
+                    <td class="col-input">
+                        <select id="f3a_pakan_opsi">
+                            <option value="">-- Pilih --</option>
+                            <option value="Ya - diet normal">Ya – dengan diet normal (isi bagian 3.c.)</option>
+                            <option value="Ya - diet khusus">Ya – dengan diet khusus (isi bagian 3.d.)</option>
+                            <option value="Ya - dengan pembatasan">Ya – dengan pembatasan (isi bagian 3.e.)</option>
+							<option value="Ya - kombinasi opsi">Ya – kombinasi diet normal/khusus/pembatasan (isi bagian yang sesuai)</option>
+                            <option value="Tidak">Tidak</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel indent-text">Jika tidak, jelaskan alasannya:</td>
+                    <td class="col-input">
+                        <textarea id="f3a_pakan_alasan" placeholder="Jika hewan tidak diberi pakan, isi sel ini. Contoh: Hewan hanya dilibatkan selama 30 menit"></textarea>
+                        <div id="mirror_f3a_pakan_alasan" class="print-mirror"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel">b. Apakah hewan akan diberikan air minum?</td>
+                    <td class="col-input">
+                        <select id="f3b_minum_opsi">
+                            <option value="">-- Pilih --</option>
+                            <option value="Ya - ad libitum">Ya – secara <i>ad libitum</i></option>
+                            <option value="Ya - dengan pembatasan">Ya – dengan pembatasan (isi bagian 3.e.)</option>
+                            <option value="Tidak">Tidak</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel indent-text">Jika tidak, jelaskan alasannya:</td>
+                    <td class="col-input">
+                        <textarea id="f3b_minum_alasan" placeholder="Jika hewan tidak diberi air minum, isi sel ini. Contoh: Hewan hanya dilibatkan selama 10 menit"></textarea>
+                        <div id="mirror_f3b_minum_alasan" class="print-mirror"></div>
+                    </td>
+                </tr>
+                <tr><td colspan="2" class="col-sublabel">c. Pemberian pakan dengan diet normal:</td></tr>
+                <tr>
+                    <td class="col-sublabel indent-text">(1) Jumlah hewan</td>
+                    <td class="col-input"><textarea id="f3c1_jumlah" placeholder="Contoh: 10 ekor"></textarea><div id="mirror_f3c1_jumlah" class="print-mirror"></div></td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel indent-text">(2) Jenis dan komposisi pakan</td>
+                    <td class="col-input"><textarea id="f3c2_jenis" placeholder="Jelaskan jenis dan komposisi pakan normal"></textarea><div id="mirror_f3c2_jenis" class="print-mirror"></div></td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel indent-text">(3) Frekuensi pemberian</td>
+                    <td class="col-input"><textarea id="f3c3_frekuensi" placeholder="Contoh: Pakan disediakan secara ad-libitum atau pakan diberikan dua kali sehari (pada pagi dan sore hari)"></textarea><div id="mirror_f3c3_frekuensi" class="print-mirror"></div></td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel indent-text">(4) Jumlah atau volume pakan</td>
+                    <td class="col-input"><textarea id="f3c4_volume" placeholder="Contoh: 20 gram per hari"></textarea><div id="mirror_f3c4_volume" class="print-mirror"></div></td>
+                </tr>
+
+                <tr><td colspan="2" class="col-sublabel">d. Pemberian pakan dengan diet khusus:</td></tr>
+                <tr>
+                    <td class="col-sublabel indent-text">(1) Jumlah hewan</td>
+                    <td class="col-input"><textarea id="f3d1_jumlah" placeholder="Contoh: 10 ekor"></textarea><div id="mirror_f3d1_jumlah" class="print-mirror"></div></td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel indent-text">(2) Jenis dan komposisi pakan</td>
+                    <td class="col-input"><textarea id="f3d2_jenis" placeholder="Jelaskan jenis dan komposisi pakan khusus"></textarea><div id="mirror_f3d2_jenis" class="print-mirror"></div></td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel indent-text">(3) Frekuensi pemberian</td>
+                    <td class="col-input"><textarea id="f3d3_frekuensi" placeholder="Contoh: Pakan disediakan secara ad-libitum atau pakan diberikan dua kali sehari (pada pagi dan sore hari)"></textarea><div id="mirror_f3d3_frekuensi" class="print-mirror"></div></td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel indent-text">(4) Jumlah atau volume pakan</td>
+                    <td class="col-input"><textarea id="f3d4_volume" placeholder="Contoh: 15 gram per hari"></textarea><div id="mirror_f3d4_volume" class="print-mirror"></div></td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel indent-text">(5) Jangka waktu pemberian</td>
+                    <td class="col-input"><textarea id="f3d5_durasi" placeholder="Contoh: pakan khusus diberikan selama masa penelitian (14 hari)"></textarea><div id="mirror_f3d5_durasi" class="print-mirror"></div></td>
+                </tr>
+
+                <tr><td colspan="2" class="col-sublabel">e. Pembatasan akses pakan dan/atau air minum:</td></tr>
+                <tr>
+                    <td class="col-sublabel indent-text">(1) Jumlah hewan</td>
+                    <td class="col-input"><textarea id="f3e1_jumlah" placeholder="Contoh: 5 ekor"></textarea><div id="mirror_f3e1_jumlah" class="print-mirror"></div></td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel indent-text">(2) Metode pembatasan</td>
+                    <td class="col-input"><textarea id="f3e2_metode" placeholder="Contoh: Pakan diberikan separuh dari kebutuhan kalori harian"></textarea><div id="mirror_f3e2_metode" class="print-mirror"></div></td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel indent-text">(3) Jangka waktu pembatasan</td>
+                    <td class="col-input"><textarea id="f3e3_durasi" placeholder="Contoh: pembetasan diberlakukan selama masa penelitian (14 hari)"></textarea><div id="mirror_f3e3_durasi" class="print-mirror"></div></td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel">f. Seberapa sering pakan dan air minum diperiksa ketersediaannya?</td>
+                    <td class="col-input">
+                        <textarea id="f3f_frekuensi_cek" placeholder="Jelaskan frekuensi pemeriksaan pakan/minum"></textarea>
+                        <div id="mirror_f3f_frekuensi_cek" class="print-mirror"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td rowspan="6" class="col-num">4.</td>
+                    <td colspan="2" class="bg-white-header">Pengekangan (<i>restraint</i>)</td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel">a. Apakah hewan akan menjalani pengekangan?</td>
+                    <td class="col-input">
+                        <select id="f4a_restraint_opsi">
+                            <option value="">-- Pilih --</option>
+                            <option value="Ya">Ya (lanjutkan ke 4.b.)</option>
+                            <option value="Tidak">Tidak (lanjutkan ke no. 5)</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel">b. Justifikasi pengekangan</td>
+                    <td class="col-input">
+                        <textarea id="f4b_justifikasi" placeholder="Uraikan alasan diperlukannya pengekangan"></textarea>
+                        <div id="mirror_f4b_justifikasi" class="print-mirror"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel">c. Metode pengekangan</td>
+                    <td class="col-input">
+                        <textarea id="f4c_metode" placeholder="Uraikan cara, alat, dan/atau bahan apa saja yang digunakan"></textarea>
+                        <div id="mirror_f4c_metode" class="print-mirror"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel">d. Frekuensi dan durasi pengekangan per sesi</td>
+                    <td class="col-input">
+                        <textarea id="f4d_durasi" placeholder="Uraikan seberapa sering pengekangan dilakukan dan berapa lama per sesi"></textarea>
+                        <div id="mirror_f4d_durasi" class="print-mirror"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel">f. Cara untuk mengurangi nyeri dan/atau distres</td>
+                    <td class="col-input">
+                        <textarea id="f4f_mitigasi_distres" placeholder="Uraikan tindakan untuk menjaga kesejahteraan hewan selama durasi pengekangan"></textarea>
+                        <div id="mirror_f4f_mitigasi_distres" class="print-mirror"></div>
+                    </td>
+                </tr>
+				<tr>
+                    <td rowspan="4" class="col-num">5.</td>
+                    <td colspan="2" class="bg-white-header">Koleksi bahan biologis dengan metode noninvasif</td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel">a. Apakah koleksi bahan biologis dengan metode noninvasif (misal: urine/feses) dilakukan?</td>
+                    <td class="col-input">
+                        <select id="f5a_noninvasif_opsi">
+                            <option value="">-- Pilih --</option>
+                            <option value="Ya">Ya (lanjutkan ke 5.b.)</option>
+                            <option value="Tidak">Tidak (lanjutkan ke no. 6)</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel">b. Uraikan bahan biologis dan justifikasi koleksinya</td>
+                    <td class="col-input">
+                        <textarea id="f5b_uraian_koleksi" placeholder="Uraikan: (1) Jenis bahan biologis; (2) Mengapa bahan itu harus dikoleksi"></textarea>
+                        <div id="mirror_f5b_uraian_koleksi" class="print-mirror"></div>
+                    </td>
+                </tr>
+				<tr>
+                    <td class="col-sublabel">c. Uraikan metode koleksi dan cara meminimalkan nyeri/distres</td>
+                    <td class="col-input">
+                        <textarea id="f5c_uraian_koleksi2" placeholder="Uraikan: (1) Bagaimana mekanisme koleksi bahan biologis; (2) Bagaimana cara memastikan kesejahteraan hewan selama proses koleksi"></textarea>
+                        <div id="mirror_f5c_uraian_koleksi2" class="print-mirror"></div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td rowspan="8" class="col-num">6.</td>
+                    <td colspan="2" class="bg-white-header">Koleksi sampel darah</td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel">a. Apakah pengambilan sampel darah akan dilakukan pada kegiatan ini?</td>
+                    <td class="col-input">
+                        <select id="f6a_darah_opsi">
+                            <option value="">-- Pilih --</option>
+                            <option value="Ya">Ya (lanjutkan ke 6.b.)</option>
+                            <option value="Tidak">Tidak (lanjutkan ke no. 7)</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel">b. Justifikasi pengambilan sampel darah</td>
+                    <td class="col-input">
+                        <textarea id="f6b_justifikasi" placeholder="Uraikan mengapa sampel darah perlu dikoleksi"></textarea>
+                        <div id="mirror_f6b_justifikasi" class="print-mirror"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel">c. Jumlah hewan yang diambil darahnya</td>
+                    <td class="col-input">
+                        <textarea id="f6c_jumlah_hewan" placeholder="Contoh: 20 ekor"></textarea>
+                        <div id="mirror_f6c_jumlah_hewan" class="print-mirror"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel">d. Metode dan lokasi pengambilan darah pada tubuh hewan</td>
+                    <td class="col-input">
+                        <textarea id="f6d_metode_lokasi" placeholder="Contoh: Vena lateralis ekor menggunakan spuit 1 ml"></textarea>
+                        <div id="mirror_f6d_metode_lokasi" class="print-mirror"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel">e. Jumlah sampel darah per hewan (ml atau ml/kg BB)</td>
+                    <td class="col-input">
+                        <textarea id="f6e_volume_sampel" placeholder="Contoh: 5 ml atau 0,07 ml/kg BB"></textarea>
+                        <div id="mirror_f6e_volume_sampel" class="print-mirror"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel">f. Frekuensi pengambilan sampel darah</td>
+                    <td class="col-input">
+                        <textarea id="f6f_frekuensi" placeholder="Contoh: Satu kali pada hari ketujuh"></textarea>
+                        <div id="mirror_f6f_frekuensi" class="print-mirror"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel">g. Cara untuk mengurangi nyeri dan/atau distres</td>
+                    <td class="col-input">
+                        <textarea id="f6g_mitigasi_nyeri" placeholder="Uraikan cara untuk memastikan kesejahteraan hewan selama proses koleksi darah"></textarea>
+                        <div id="mirror_f6g_mitigasi_nyeri" class="print-mirror"></div>
+                    </td>
+                </tr>
+				<tr>
+                    <td rowspan="5" class="col-num">7.</td>
+                    <td colspan="2" class="bg-white-header">Koleksi jaringan dan/atau organ dengan metode invasif</td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel">a. Apakah koleksi jaringan dan/atau organ (selain darah) dilakukan dengan metode invasif?</td>
+                    <td class="col-input">
+                        <select id="f7a_invasif_opsi">
+                            <option value="">-- Pilih --</option>
+                            <option value="Ya">Ya (lanjutkan ke 7.b.)</option>
+                            <option value="Tidak">Tidak (lanjutkan ke no. 8)</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel">b. Justifikasi penggunaan metode invasif dan alasan alternatif non-invasif tidak sesuai</td>
+                    <td class="col-input">
+                        <textarea id="f7b_justifikasi" placeholder="Uraikan alasan perlunya metode invasif (misalnya biopsi)"></textarea>
+                        <div id="mirror_f7b_justifikasi" class="print-mirror"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel">c. Uraikan jaringan/organ yang dikoleksi, metode koleksi, dan cara meminimalkan nyeri/distres</td>
+                    <td class="col-input">
+                        <textarea id="f7c_uraian_koleksi" placeholder="Uraikan detail jaringan, metode koleksi (misalnya pembedahan atau biopsi), dan manajemen nyeri pada hewan sebelum dan selama proses invasif"></textarea>
+                        <div id="mirror_f7c_uraian_koleksi" class="print-mirror"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel">d. Jelaskan prosedur pemantauan dan pemulihan hewan pascakoleksi</td>
+                    <td class="col-input">
+                        <textarea id="f7d_pemantauan_pemulihan" placeholder="Uraikan cara merawat hewan setelah metode invasif selesai dilakukan"></textarea>
+                        <div id="mirror_f7d_pemantauan_pemulihan" class="print-mirror"></div>
+                    </td>
+                </tr>
+				<tr>
+                    <td rowspan="12" class="col-num">8.</td>
+                    <td colspan="2" class="bg-white-header">Nyeri dan distres</td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel">a. Apakah kegiatan ini melibatkan minimum satu prosedur yang menyebabkan lebih dari rasa nyeri sesaat (<i>momentary pain</i>) dan distres?</td>
+                    <td class="col-input">
+                        <select id="f8a_nyeri_opsi">
+                            <option value="">-- Pilih --</option>
+                            <option value="Ya">Ya (lanjutkan ke 8.b.)</option>
+                            <option value="Tidak">Tidak (lanjutkan ke no. 9)</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel">b. Uraikan prosedur yang berpotensi menyebabkan lebih dari rasa nyeri sesaat dan distres</td>
+                    <td class="col-input">
+                        <textarea id="f8b_uraian_prosedur" placeholder="Uraikan prosedur yang dimaksud"></textarea>
+                        <div id="mirror_f8b_uraian_prosedur" class="print-mirror"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel">c. Uraikan cara memantau respons nyeri hewan (contoh: ekspresi wajah, postur, nafsu makan, vokalisasi)</td>
+                    <td class="col-input">
+                        <textarea id="f8c_pantau_nyeri" placeholder="Uraikan metode pemantauan skor nyeri atau tanda klinis lainnya"></textarea>
+                        <div id="mirror_f8c_pantau_nyeri" class="print-mirror"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel">d. Apakah analgesia akan diberikan pada hewan?</td>
+                    <td class="col-input">
+                        <select id="f8d_analgesia_opsi">
+                            <option value="">-- Pilih --</option>
+                            <option value="Ya">Ya (uraikan detailnya pada kolom di bawah)</option>
+                            <option value="Tidak">Tidak (uraikan alasannya pada kolom di bawah)</option>
+                        </select>
+                    </td>
+                </tr>
+                
+                <tr><td colspan="2" class="col-sublabel indent-text">Jika analgesia akan digunakan, mohon uraikan:</td></tr>
+                <tr>
+                    <td class="col-sublabel indent-text">(1) Nama agen analgesia</td>
+                    <td class="col-input"><textarea id="f8d1_nama" placeholder="Tuliskan zat aktif agen analgesia"></textarea><div id="mirror_f8d1_nama" class="print-mirror"></div></td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel indent-text">(2) Dosis (mg/bb)</td>
+                    <td class="col-input"><textarea id="f8d2_dosis" placeholder="Tuliskan dosis agen analgesia"></textarea><div id="mirror_f8d2_dosis" class="print-mirror"></div></td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel indent-text">(3) Rute penghantaran</td>
+                    <td class="col-input"><textarea id="f8d3_rute" placeholder="Tuliskan rute penghantaran agen analgesia"></textarea><div id="mirror_f8d3_rute" class="print-mirror"></div></td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel indent-text">(4) Frekuensi pemberian</td>
+                    <td class="col-input"><textarea id="f8d4_frekuensi" placeholder="Tuliskan kapan saja agen analgesia diberikan"></textarea><div id="mirror_f8d4_frekuensi" class="print-mirror"></div></td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel indent-text">(5) Durasi efek analgesik</td>
+                    <td class="col-input"><textarea id="f8d5_durasi" placeholder="Tuliskan perkiraan seberapa lama agen analgesia akan berefek"></textarea><div id="mirror_f8d5_durasi" class="print-mirror"></div></td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel indent-text">Jika analgesia tidak digunakan, mohon jelaskan alasannya:</td>
+                    <td class="col-input">
+                        <textarea id="f8d_alasan_tidak" placeholder="Uraikan alasan atau kontraindikasi penggunaan analgesia"></textarea>
+                        <div id="mirror_f8d_alasan_tidak" class="print-mirror"></div>
+                    </td>
+                </tr>
+				<tr>
+                    <td rowspan="17" class="col-num">9.</td>
+                    <td colspan="2" class="bg-white-header">Anestesia</td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel">a. Apakah anestesia akan digunakan pada hewan?</td>
+                    <td class="col-input">
+                        <select id="f9a_anestesia_opsi">
+                            <option value="">-- Pilih --</option>
+                            <option value="Ya">Ya (lanjutkan ke 9.b.)</option>
+                            <option value="Tidak">Tidak (lanjutkan ke no. 10)</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel">b. Apa jenis anestesi yang akan dilakukan (contoh: lokal, regional, umum)?</td>
+                    <td class="col-input">
+                        <textarea id="f9b_jenis_anestesi" placeholder="Tuliskan jenis anestesi yang direncanakan"></textarea>
+                        <div id="mirror_f9b_jenis_anestesi" class="print-mirror"></div>
+                    </td>
+                </tr>
+                
+                <tr><td colspan="2" class="col-sublabel">c. Uraikan semua agen yang akan digunakan (termasuk pre-anestesi, sedatif, dll.):</td></tr>
+                
+                <tr>
+                    <td class="col-sublabel indent-text">(1) Nama agen</td>
+                    <td class="col-input"><input type="text" id="f9c1_nama" placeholder="Tuliskan nama agen"></td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel indent-text" style="padding-left: 45px !important;">Dosis</td>
+                    <td class="col-input"><input type="text" id="f9c1_dosis" placeholder="Tuliskan dosis agen (mg/kg BB)"></td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel indent-text" style="padding-left: 45px !important;">Rute penghantaran</td>
+                    <td class="col-input"><input type="text" id="f9c1_rute" placeholder="Contoh: Intravena"></td>
+                </tr>
+
+                <tr>
+                    <td class="col-sublabel indent-text">(2) Nama agen</td>
+                    <td class="col-input"><input type="text" id="f9c2_nama" placeholder="Tuliskan nama agen"></td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel indent-text" style="padding-left: 45px !important;">Dosis</td>
+                    <td class="col-input"><input type="text" id="f9c2_dosis" placeholder="Tuliskan dosis agen (mg/kg BB)"></td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel indent-text" style="padding-left: 45px !important;">Rute penghantaran</td>
+                    <td class="col-input"><input type="text" id="f9c2_rute" placeholder="Contoh: Intravena"></td>
+                </tr>
+
+                <tr>
+                    <td class="col-sublabel indent-text">(3) Nama agen</td>
+                    <td class="col-input"><input type="text" id="f9c3_nama" placeholder="Tuliskan nama agen"></td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel indent-text" style="padding-left: 45px !important;">Dosis</td>
+                    <td class="col-input"><input type="text" id="f9c3_dosis" placeholder="Tuliskan dosis agen (mg/kg BB)"></td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel indent-text" style="padding-left: 45px !important;">Rute penghantaran</td>
+                    <td class="col-input"><input type="text" id="f9c3_rute" placeholder="Contoh: Intravena"></td>
+                </tr>
+
+                <tr>
+                    <td class="col-sublabel">d. Kapan prosedur anestesi akan dilakukan pada setiap hewan?</td>
+                    <td class="col-input">
+                        <textarea id="f9d_frekuensi_anestesi" placeholder="Tuliskan kapan anestesi akan dilakukan"></textarea>
+                        <div id="mirror_f9d_frekuensi_anestesi" class="print-mirror"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel">e. Berapa lama perkiraan durasi (efek) anestesi?</td>
+                    <td class="col-input">
+                        <textarea id="f9e_durasi_anestesi" placeholder="Tuliskan perkiraan seberapa lama agen anestesia akan berefek"></textarea>
+                        <div id="mirror_f9e_durasi_anestesi" class="print-mirror"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel">f. Bagaimana cara memantau kondisi hewan selama durasi anestesi?</td>
+                    <td class="col-input">
+                        <textarea id="f9f_pantau_anestesi" placeholder="Uraikan parameter biologis yang dipantau, cara memantau kondisi hewan, dan tindakan yang akan dilakukan jika terjadi hal-hal yang tidak diinginkan"></textarea>
+                        <div id="mirror_f9f_pantau_anestesi" class="print-mirror"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel">g. Jelaskan perawatan yang diberikan untuk mendukung pemulihan hewan setelah anestesi</td>
+                    <td class="col-input">
+                        <textarea id="f9g_perawatan_pulih" placeholder="Uraikan cara merawat hewan setelah masa anestesi selesai"></textarea>
+                        <div id="mirror_f9g_perawatan_pulih" class="print-mirror"></div>
+                    </td>
+                </tr>
+				<tr>
+                    <td rowspan="14" class="col-num">10.</td>
+                    <td colspan="2" class="bg-white-header">Penghantaran obat, reagen, vaksin, atau substansi lainnya (selain anestesia dan analgesia)</td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel">a. Apakah ada komponen obat, reagen, vaksin, atau substansi lain yang diberikan kepada hewan?</td>
+                    <td class="col-input">
+                        <select id="f10a_substansi_opsi">
+                            <option value="">-- Pilih --</option>
+                            <option value="Ya">Ya (lanjutkan ke 10.b.)</option>
+                            <option value="Tidak">Tidak (lanjutkan ke no. 11)</option>
+                        </select>
+                    </td>
+                </tr>
+                
+                <tr><td colspan="2" class="col-sublabel">b. Uraikan substansi tersebut:</td></tr>
+                
+                <tr>
+                    <td class="col-sublabel indent-text">(1) Nama agen</td>
+                    <td class="col-input"><input type="text" id="f10b1_nama" placeholder="Tuliskan nama agen/substansi"></td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel indent-text" style="padding-left: 45px !important;">Dosis</td>
+                    <td class="col-input"><input type="text" id="f10b1_dosis" placeholder="Contoh: 10 mg/kg BB"></td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel indent-text" style="padding-left: 45px !important;">Rute penghantaran</td>
+                    <td class="col-input"><input type="text" id="f10b1_rute" placeholder="Contoh: Intramuskuler"></td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel indent-text" style="padding-left: 45px !important;">Frekuensi dan durasi pemberian</td>
+                    <td class="col-input"><input type="text" id="f10b1_freq" placeholder="Contoh: 1 kali sehari selama 3 hari"></td>
+                </tr>
+
+                <tr>
+                    <td class="col-sublabel indent-text">(2) Nama agen</td>
+                    <td class="col-input"><input type="text" id="f10b2_nama" placeholder="Tuliskan nama agen/substansi"></td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel indent-text" style="padding-left: 45px !important;">Dosis</td>
+                    <td class="col-input"><input type="text" id="f10b2_dosis" placeholder="Contoh: 10 mg/kg BB"></td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel indent-text" style="padding-left: 45px !important;">Rute penghantaran</td>
+                    <td class="col-input"><input type="text" id="f10b2_rute" placeholder="Contoh: Intramuskuler"></td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel indent-text" style="padding-left: 45px !important;">Frekuensi dan durasi pemberian</td>
+                    <td class="col-input"><input type="text" id="f10b2_freq" placeholder="Contoh: 1 kali sehari selama 3 hari"></td>
+                </tr>
+
+                <tr>
+                    <td class="col-sublabel">c. Apakah ada agen yang diketahui memiliki kontraindikasi atau memengaruhi validasi data kegiatan?</td>
+                    <td class="col-input">
+                        <textarea id="f10c_kontraindikasi" placeholder="Uraikan jika ada agen yang dapat memengaruhi hasil penelitian"></textarea>
+                        <div id="mirror_f10c_kontraindikasi" class="print-mirror"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel">d. Berikan penjelasan singkat tentang tujuan pemberian setiap agen</td>
+                    <td class="col-input">
+                        <textarea id="f10d_tujuan_agen" placeholder="Contoh: manipulasi terapeutik, eksperimental, stimulasi respons imun"></textarea>
+                        <div id="mirror_f10d_tujuan_agen" class="print-mirror"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel">e. Jelaskan efek samping yang diketahui atau diantisipasi dan langkah pemantauan kesejahteraan hewan</td>
+                    <td class="col-input">
+                        <textarea id="f10e_efek_samping" placeholder="Uraikan efek samping dan rencana mitigasi risiko"></textarea>
+                        <div id="mirror_f10e_efek_samping" class="print-mirror"></div>
+                    </td>
+                </tr>
+				<tr>
+                    <td rowspan="4" class="col-num">11.</td>
+                    <td colspan="2" class="bg-white-header">Agen paralitik</td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel">a. Apakah agen paralitik, muskulorelaksan, atau agen pembatas lainnya akan diberikan pada hewan?</td>
+                    <td class="col-input">
+                        <select id="f11a_paralitik_opsi">
+                            <option value="">-- Pilih --</option>
+                            <option value="Ya">Ya (lanjutkan ke 11.b.)</option>
+                            <option value="Tidak">Tidak (lanjutkan ke no. 12)</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel">b. Apa agen paralitik yang diberikan? Berikan justifikasi penggunaan agen tersebut</td>
+                    <td class="col-input">
+                        <textarea id="f11b_justifikasi" placeholder="Tuliskan nama agen dan alasan mengapa penggunaannya diperlukan"></textarea>
+                        <div id="mirror_f11b_justifikasi" class="print-mirror"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel">c. Jelaskan dosis, rute, frekuensi, durasi, serta prosedur pemantauan nyeri/distres saat agen bekerja</td>
+                    <td class="col-input">
+                        <textarea id="f11c_prosedur_pantau" placeholder="Uraikan rincian dosis dan cara untuk memastikan hewan tidak merasa nyeri saat lumpuh"></textarea>
+                        <div id="mirror_f11c_prosedur_pantau" class="print-mirror"></div>
+                    </td>
+                </tr>
+				<tr>
+                    <td rowspan="18" class="col-num">12.</td>
+                    <td colspan="2" class="bg-white-header">Agen berbahaya</td>
+                </tr>				
+				<tr class="no-print-break">
+                    <td colspan="2" style="padding: 10px; font-size: 12px; font-style: italic; background-color: #f9f9f9; border: 1px solid #000; line-height: 1.4;">
+                        <strong>Catatan:</strong> Jika agen berbahaya (misalnya agen biologis, bahan kimia beracun, atau bahan radioaktif) akan digunakan, silakan hubungi laboratorium tempat prosedur ini akan dilakukan sebelum mengirimkan permohonan ini pada KEHP untuk konfirmasi tersedianya fasilitas biosafety yang sesuai.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel">a. Apakah ada agen berbahaya yang akan digunakan dalam kegiatan ini?</td>
+                    <td class="col-input">
+                        <select id="f12a_bahaya_opsi">
+                            <option value="">-- Pilih --</option>
+                            <option value="Ya">Ya (lanjutkan ke 12.b.)</option>
+                            <option value="Tidak">Tidak (lanjutkan ke no. 13)</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="col-sublabel">b. Deskripsi agen berbahaya</td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel indent-text">(1) Nama agen</td>
+                    <td class="col-input"><input type="text" id="f12b1_nama" placeholder="Tuliskan nama agen"></td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel indent-text">(2) Rumus kimia (jika ada)</td>
+                    <td class="col-input"><input type="text" id="f12b2_rumus" placeholder="Tuliskan rumus kimia agen"></td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel indent-text">(3) Apakah agen bersifat infeksius?</td>
+                    <td class="col-input">
+                        <select id="f12b3_infeksius">
+                            <option value="">-- Pilih --</option>
+                            <option value="Ya">Ya</option>
+                            <option value="Tidak">Tidak</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel indent-text">(4) Apakah agen bersifat karsinogenik?</td>
+                    <td class="col-input">
+                        <select id="f12b4_karsinogenik">
+                            <option value="">-- Pilih --</option>
+                            <option value="Ya">Ya</option>
+                            <option value="Tidak">Tidak</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel indent-text">(5) Apakah agen bersifat radioaktif?</td>
+                    <td class="col-input">
+                        <select id="f12b5_radioaktif">
+                            <option value="">-- Pilih --</option>
+                            <option value="Ya">Ya</option>
+                            <option value="Tidak">Tidak</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel indent-text">(6) Apakah agen bersifat beracun?</td>
+                    <td class="col-input">
+                        <select id="f12b6_racun">
+                            <option value="">-- Pilih --</option>
+                            <option value="Ya">Ya</option>
+                            <option value="Tidak">Tidak</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel indent-text">(7) Dosis yang akan digunakan</td>
+                    <td class="col-input"><input type="text" id="f12b7_dosis" placeholder="Tuliskan dosis agen yang akan diberikan"></td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel indent-text">(8) Efek terhadap hewan</td>
+                    <td class="col-input">
+                        <textarea id="f12b8_efek_hewan" placeholder="Uraikan efek biologis terhadap hewan"></textarea>
+                        <div id="mirror_f12b8_efek_hewan" class="print-mirror"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel indent-text">(9) Bahaya terhadap manusia</td>
+                    <td class="col-input">
+                        <textarea id="f12b9_bahaya_manusia" placeholder="Uraikan risiko kesehatan bagi personel"></textarea>
+                        <div id="mirror_f12b9_bahaya_manusia" class="print-mirror"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel indent-text">(10) Cara memantau efek</td>
+                    <td class="col-input">
+                        <textarea id="f12b10_pantau" placeholder="Uraikan prosedur pemantauan efek agen, baik terhadap hewan maupun manusia"></textarea>
+                        <div id="mirror_f12b10_pantau" class="print-mirror"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel">c. Tingkat keselamatan hayati (<i>biosafety level</i>) yang digunakan?</td>
+                    <td class="col-input">
+                        <select id="f12c_bsl">
+                            <option value="">-- Pilih --</option>
+                            <option value="BSL-1">BSL-1</option>
+                            <option value="BSL-2">BSL-2</option>
+                            <option value="BSL-3">BSL-3</option>
+                            <option value="BSL-4">BSL-4</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel">d. Di mana prosedur ini akan dilakukan?</td>
+                    <td class="col-input"><input type="text" id="f12d_lokasi" placeholder="Tuliskan laboratorium atau ruangan spesifik"></td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel">e. Jelaskan cara untuk melindungi personel yang terlibat</td>
+                    <td class="col-input">
+                        <textarea id="f12e_proteksi" placeholder="Uraikan penggunaan alat pelindung diri dan prosedur keselamatan kerja"></textarea>
+                        <div id="mirror_f12e_proteksi" class="print-mirror"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel">f. Jelaskan prosedur penanganan limbah atau pemusnahan substansi</td>
+                    <td class="col-input">
+                        <textarea id="f12f_limbah" placeholder="Uraikan metode pembuangan substansi dan hasil buangan hewan"></textarea>
+                        <div id="mirror_f12f_limbah" class="print-mirror"></div>
+                    </td>
+                </tr>
+				<tr>
+                    <td rowspan="8" class="col-num">13.</td>
+                    <td colspan="2" class="bg-white-header">Pembedahan</td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel">a. Apakah kegiatan ini melibatkan pembedahan pada hewan?</td>
+                    <td class="col-input">
+                        <select id="f13a_bedah_opsi">
+                            <option value="">-- Pilih --</option>
+                            <option value="Ya">Ya (lanjutkan ke 13.b.)</option>
+                            <option value="Tidak">Tidak (lanjutkan ke no. 14)</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel">b. Justifikasi dan tujuan pembedahan pada hewan</td>
+                    <td class="col-input">
+                        <textarea id="f13b_justifikasi" placeholder="Uraikan alasan dan tujuan pembedahan"></textarea>
+                        <div id="mirror_f13b_justifikasi" class="print-mirror"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel">c. Apakah pembedahan bersifat survival atau terminal (nonsurvival)?</td>
+                    <td class="col-input">
+                        <select id="f13c_survival_opsi">
+                            <option value="">-- Pilih --</option>
+                            <option value="Survival">Survival (lanjutkan ke 13.d.)</option>
+                            <option value="Terminal/nonsurvival">Terminal/nonsurvival (lanjutkan ke no. 14)</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="col-sublabel">d. Rincian pembedahan survival:</td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel indent-text">(1) Jenis pembedahan dan tingkat invasifnya (mayor atau minor)</td>
+                    <td class="col-input">
+                        <textarea id="f13d1_jenis" placeholder="Uraikan jenis pembedahan"></textarea>
+                        <div id="mirror_f13d1_jenis" class="print-mirror"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel indent-text">(2) Jumlah hewan yang menjalani pembedahan</td>
+                    <td class="col-input">
+                        <input type="text" id="f13d2_jumlah" placeholder="Tuliskan jumlah hewan">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel indent-text">(3) Prosedur penanganan pascapembedahan, termasuk pemulihan dan perawatan luka</td>
+                    <td class="col-input">
+                        <textarea id="f13d3_penanganan" placeholder="Uraikan cara perawatan luka dan pemulihan, termasuk cara memantau kondisi hewan"></textarea>
+                        <div id="mirror_f13d3_penanganan" class="print-mirror"></div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td rowspan="6" class="col-num">14.</td>
+                    <td colspan="2" class="bg-white-header">Uji tingkah laku</td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel">a. Apakah kegiatan ini melibatkan uji tingkah laku pada hewan?</td>
+                    <td class="col-input">
+                        <select id="f14a_tingkah_laku_opsi">
+                            <option value="">-- Pilih --</option>
+                            <option value="Ya">Ya (lanjutkan ke 14.b.)</option>
+                            <option value="Tidak">Tidak (lanjutkan ke no. 15)</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel">b. Justifikasi, jenis, tujuan, dan durasi uji tingkah laku pada hewan</td>
+                    <td class="col-input">
+                        <textarea id="f14b_uraian" placeholder="Jelaskan detail uji tingkah laku"></textarea>
+                        <div id="mirror_f14b_uraian" class="print-mirror"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel">c. Apakah hewan akan dilatih atau perilakunya diintervensi?</td>
+                    <td class="col-input">
+                        <select id="f14c_intervensi_opsi">
+                            <option value="">-- Pilih --</option>
+                            <option value="Ya">Ya (mohon uraikan)</option>
+                            <option value="Tidak">Tidak</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel indent-text">Jika ya, mohon uraikan:</td>
+                    <td class="col-input">
+                        <textarea id="f14c_uraian_intervensi" placeholder="Jelaskan jenis latihan atau intervensi"></textarea>
+                        <div id="mirror_f14c_uraian_intervensi" class="print-mirror"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel">d. Cara untuk memantau kondisi hewan</td>
+                    <td class="col-input">
+                        <textarea id="f14d_metode_pantau" placeholder="Uraikan metode pemantauan kondisi hewan"></textarea>
+                        <div id="mirror_f14d_metode_pantau" class="print-mirror"></div>
+                    </td>
+                </tr>
+				<tr>
+                    <td rowspan="4" class="col-num">15.</td>
+                    <td colspan="2" class="bg-white-header">Produksi adjuvan dan/atau antibodi</td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel">a. Apakah kegiatan ini melibatkan produksi adjuvan dan/atau antibodi?</td>
+                    <td class="col-input">
+                        <select id="f15a_opsi">
+                            <option value="">-- Pilih --</option>
+                            <option value="Ya">Ya (lanjutkan ke 15.b.)</option>
+                            <option value="Tidak">Tidak (lanjutkan ke no. 16)</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel">b. Jenis adjuvan dan/atau antibodi, mekanisme koleksi, serta metode dan frekuensi pemantauan kondisi hewan</td>
+                    <td class="col-input">
+                        <textarea id="f15b_rincian" placeholder="Uraikan semua hal tentang adjuvan dan/atau antibodi dan cara memantau kondisi hewan"></textarea>
+                        <div id="mirror_f15b_rincian" class="print-mirror"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel">c. Titik akhir (<i>humane endpoint</i>) untuk menghentikan individu hewan dari penelitian</td>
+                    <td class="col-input">
+                        <textarea id="f15c_endpoint" placeholder="Uraikan kriteria yang digunakan untuk menentukan kapan individu hewan dihentikan dari penelitian untuk mencegah penderitaan yang tidak perlu"></textarea>
+                        <div id="mirror_f15c_endpoint" class="print-mirror"></div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td rowspan="4" class="col-num">16.</td>
+                    <td colspan="2" class="bg-white-header">Transplantasi atau induksi tumor</td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel">a. Apakah kegiatan ini melibatkan tumor?</td>
+                    <td class="col-input">
+                        <select id="f16a_opsi">
+                            <option value="">-- Pilih --</option>
+                            <option value="Ya">Ya (lanjutkan ke 16.b.)</option>
+                            <option value="Tidak">Tidak (lanjutkan ke no. 17)</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel">b. Jenis tumor, lokasi tumor, perkiraan gangguan fungsi tubuh hewan, serta metode dan frekuensi pemantauan kondisi hewan</td>
+                    <td class="col-input">
+                        <textarea id="f16b_uraian" placeholder="Uraikan semua hal tentang prosedur yang melibatkan tumor dan cara memantau kondisi hewan"></textarea>
+                        <div id="mirror_f16b_uraian" class="print-mirror"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel">c. Titik akhir (<i>humane endpoint</i>) untuk menghentikan individu hewan dari penelitian</td>
+                    <td class="col-input">
+                        <textarea id="f16c_endpoint" placeholder="Uraikan kriteria yang digunakan untuk menentukan kapan individu hewan dihentikan dari penelitian untuk mencegah penderitaan yang tidak perlu"></textarea>
+                        <div id="mirror_f16c_endpoint" class="print-mirror"></div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td rowspan="4" class="col-num">17.</td>
+                    <td colspan="2" class="bg-white-header">Uji toksisitas</td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel">a. Apakah uji toksisitas akan dilakukan pada kegiatan ini?</td>
+                    <td class="col-input">
+                        <select id="f17a_opsi">
+                            <option value="">-- Pilih --</option>
+                            <option value="Ya">Ya (lanjutkan ke 17.b.)</option>
+                            <option value="Tidak">Tidak (lanjutkan ke no. 18)</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel">b. Jenis toksin, metode uji, serta metode dan frekuensi pemantauan kondisi hewan</td>
+                    <td class="col-input">
+                        <textarea id="f17b_uraian" placeholder="Uraikan semua hal tentang uji toksisitas dan cara memantau kondisi hewan"></textarea>
+                        <div id="mirror_f17b_uraian" class="print-mirror"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel">c. Titik akhir (<i>humane endpoint</i>) untuk menghentikan individu hewan dari penelitian</td>
+                    <td class="col-input">
+                        <textarea id="f17c_endpoint" placeholder="Uraikan kriteria yang digunakan untuk menentukan kapan individu hewan dihentikan dari penelitian untuk mencegah penderitaan yang tidak perlu"></textarea>
+                        <div id="mirror_f17c_endpoint" class="print-mirror"></div>
+                    </td>
+                </tr>
+				<tr>
+                    <td rowspan="15" class="col-num">18.</td>
+                    <td colspan="2" class="bg-white-header">Keputusan akhir terhadap hewan pasca-aktivitas penggunaan hewan</td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel">a. Apa yang akan terjadi pada hewan setelah kegiatan atau proyek berakhir?</td>
+                    <td class="col-input">
+                        <select id="f18a_opsi">
+                            <option value="">-- Pilih --</option>
+                            <option value="Eutanasia">Eutanasia (lanjutkan ke 18.b.)</option>
+                            <option value="Kematian tanpa eutanasia">Kematian tanpa eutanasia (lanjutkan ke 18.c.)</option>
+                            <option value="Lainnya">Hewan tetap hidup (lanjutkan ke 18.d.)</option>
+                        </select>
+                    </td>
+                </tr>
+
+                <tr><td colspan="2" class="col-sublabel">b. Jika eutanasia akan dilakukan:</td></tr>
+                <tr>
+                    <td class="col-sublabel indent-text">(1) Kapan eutanasia dilakukan dan metode apa yang digunakan?</td>
+                    <td class="col-input">
+                        <textarea id="f18b1_metode" placeholder="Uraikan waktu dan teknik eutanasia"></textarea>
+                        <div id="mirror_f18b1_metode" class="print-mirror"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel indent-text">(2) Apa yang akan dilakukan terhadap kadaver hewan?</td>
+                    <td class="col-input">
+                        <textarea id="f18b2_kadaver" placeholder="Uraikan cara penanganan kadaver (bangkai) hewan, termasuk aspek biosafety dan biosecurity"></textarea>
+                        <div id="mirror_f18b2_kadaver" class="print-mirror"></div>
+                    </td>
+                </tr>
+
+                <tr><td colspan="2" class="col-sublabel">c. Jika kematian tanpa eutanasia merupakan titik akhir:</td></tr>
+                <tr>
+                    <td class="col-sublabel indent-text">(1) Jelaskan perkiraan penyebab kematian dan justifikasinya</td>
+                    <td class="col-input">
+                        <textarea id="f18c1_justifikasi" placeholder="Uraikan alasan membiarkan hewan mati (misalnya efek perlakuan)"></textarea>
+                        <div id="mirror_f18c1_justifikasi" class="print-mirror"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel indent-text">(2) Metode dan frekuensi pengamatan serta cara meminimalkan nyeri dan distres</td>
+                    <td class="col-input">
+                        <textarea id="f18c2_pengamatan" placeholder="Uraikan prosedur pemantauan kondisi hewan"></textarea>
+                        <div id="mirror_f18c2_pengamatan" class="print-mirror"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel indent-text">(3) Kategori titik akhir (endpoint) jika terjadi penderitaan ekstrem</td>
+                    <td class="col-input">
+                        <textarea id="f18c3_endpoint" placeholder="Kriteria untuk mengakhiri penderitaan hewan sebelum ia mengalami kematian alami"></textarea>
+                        <div id="mirror_f18c3_endpoint" class="print-mirror"></div>
+                    </td>
+                </tr>
+
+                <tr><td colspan="2" class="col-sublabel">d. Jika hewan tidak dieutanasia dan tidak dibiarkan mati:</td></tr>
+                <tr>
+                    <td class="col-sublabel indent-text">(1) Apakah hewan tetap dipelihara untuk aktivitas selanjutnya?</td>
+                    <td class="col-input">
+                        <select id="f18d1_opsi">
+                            <option value="">-- Pilih --</option>
+                            <option value="Ya">Ya (uraikan)</option>
+                            <option value="Tidak">Tidak (lanjutkan ke 18.d.(2))</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel indent-text" style="padding-left: 45px !important;">(1a) Jika ya, jelaskan rencana selanjutnya</td>
+                    <td class="col-input">
+                        <textarea id="f18d1a_rencana" placeholder="Uraikan rencana penggunaan hewan untuk kegiatan selanjutnya"></textarea>
+                        <div id="mirror_f18d1a_rencana" class="print-mirror"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel indent-text">(2) Apakah hewan dikembalikan ke pemilik atau pihak lain?</td>
+                    <td class="col-input">
+                        <select id="f18d2_opsi">
+                            <option value="">-- Pilih --</option>
+                            <option value="Ya">Ya (lanjutkan ke 2a)</option>
+                            <option value="Tidak">Tidak (lanjutkan ke 2b)</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel indent-text" style="padding-left: 45px !important;">(2a) Jika ya, jelaskan rencana selanjutnya</td>
+                    <td class="col-input">
+                        <textarea id="f18d2a_rencana" placeholder="Uraikan prosedur pengembalian hewan"></textarea>
+                        <div id="mirror_f18d2a_rencana" class="print-mirror"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-sublabel indent-text" style="padding-left: 45px !important;">(2b) Jika tidak, jelaskan rencana selanjutnya</td>
+                    <td class="col-input">
+                        <textarea id="f18d2b_rencana" placeholder="Uraikan nasib hewan jika tidak dikembalikan"></textarea>
+                        <div id="mirror_f18d2b_rencana" class="print-mirror"></div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+		
+		<div class="instruction-box" style="margin-top: 30px; border-left: 5px solid #2d8a39; background: #f0f9f1;">
+            <strong>Langkah selanjutnya:</strong><br>
+			<ol style="margin-top: 10px; padding-left: 20px;">
+				<li>Sangat disarankan (bahkan diwajibkan) untuk mengeklik tombol <b>"Simpan draf (.json)"</b> dan menyimpannya di komputer Anda. Berkas ini merupakan satu-satunya cara untuk memuat kembali data Anda jika nantinya tim peninjau meminta perbaikan (revisi). Sistem kami tidak menyimpan data Anda secara otomatis. Jika berkas draf ini tidak disimpan, Anda harus mengisi ulang seluruh formulir F02 dari awal.</li>
+				<li>Jika Anda sudah menyimpan file .json, klik tombol <b>"Simpan sebagai PDF/cetak"</b>. Pada jendela cetak yang muncul, pilih "Save as PDF".</li>
+				<li>Kirimkan file PDF tersebut bersama lampiran surat (formulir KEHP-RSH-F01 dan proposal) ke sekretariat KEHP RSH Unhas di alamat surel <b><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="177c727f673965647f62797f766457707a767e7b3974787a">[email&#160;protected]</a></b></li>
+			</ol>
+        </div>
+
+        <div class="toolbar" style="margin-top: 20px;">
+            <button type="button" class="btn-export" onclick="exportJSON()" style="flex: 1;">💾 Simpan draf (.json)</button>
+            <button type="button" class="btn-print" onclick="window.print()" style="flex: 2;">🖨️ Simpan sebagai PDF/cetak</button>
+        </div>
+		
+    </form>
+</div>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    // Sinkronisasi input ke mirror div dan auto-expand
+    document.addEventListener('input', function (e) {
+        if (e.target.tagName.toLowerCase() === 'textarea') {
+            const mirror = document.getElementById('mirror_' + e.target.id);
+            if (mirror) mirror.textContent = e.target.value;
+            autoExpand(e.target);
+        }
+    });
+
+    function autoExpand(field) {
+        field.style.height = 'inherit';
+        field.style.height = field.scrollHeight + 'px';
+    }
+
+    function exportJSON() {
+        const formData = {};
+        document.querySelectorAll('input, textarea, select').forEach(input => {
+            if (input.id) formData[input.id] = input.value;
+        });
+        const blob = new Blob([JSON.stringify(formData, null, 2)], { type: 'application/json' });
+        const a = document.createElement('a');
+        const name = (document.getElementById('nama_lengkap').value || 'Draft').replace(/\s+/g, '_');
+        a.href = URL.createObjectURL(blob);
+        a.download = `Draft_Etik_Unhas_${name}.json`;
+        a.click();
+    }
+
+    function importJSON(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            try {
+                const data = JSON.parse(e.target.result);
+                for (const key in data) {
+                    const el = document.getElementById(key);
+                    if (el) {
+                        el.value = data[key];
+                        if (el.tagName.toLowerCase() === 'textarea') {
+                            const mirror = document.getElementById('mirror_' + el.id);
+                            if (mirror) mirror.textContent = el.value;
+                            autoExpand(el);
+                        }
+                  
