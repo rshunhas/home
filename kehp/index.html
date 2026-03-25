@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Komisi Etik Hewan dan Penelitian — RSH Unhas</title>
+  <meta name="description" content="KEHP RSH Unhas — Informasi, panduan pengajuan, dan formulir persetujuan etik hewan dan penelitian Universitas Hasanuddin.">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <style>
+    /* ── In-page anchor nav ── */
+    .anchor-nav {
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: var(--nav-h);
+      z-index: 100;
+    }
+    .anchor-nav-inner {
+      display: flex;
+      gap: 0;
+      overflow-x: auto;
+      scrollbar-width: none;
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    .anchor-nav-inner::-webkit-scrollbar { display: none; }
+    .anchor-nav-inner a {
+      padding: 14px 18px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      white-space: nowrap;
+      border-bottom: 2px solid transparent;
+      text-decoration: none !important;
+      transition: all 0.15s;
+    }
+    .anchor-nav-inner a:hover,
+    .anchor-nav-inner a.active {
+      color: var(--red);
+      border-bottom-color: var(--red);
+    }
+
+    /* ── Section backgrounds alternating ── */
+    .bg-white { background: var(--white); }
+    .bg-light  { background: var(--bg); }
+    .bg-navy   { background: var(--navy); color: var(--white); }
+
+    /* ── Struktur / Pengurus ── */
+    .struct-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+    }
+    .struct-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 24px 20px;
+      text-align: center;
+      box-shadow: var(--shadow);
+      border-top: 3px solid var(--red);
+    }
+    .struct-card .avatar {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: var(--red-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      margin: 0 auto 14px;
+    }
+    .struct-card .jabatan {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 6px;
+    }
+    .struct-card .nama {
+      font-family: var(--font-head);
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--navy);
+      margin-bottom: 4px;
+    }
+    .struct-card .bidang {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
+
+    /* ── Alur Pengajuan ── */
+    .flow-steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 0;
+      position: relative;
+    }
+    .flow-step {
+      padding: 28px 24px;
+      text-align: center;
+      position: relative;
+    }
+    .flow-step:not(:last-child)::after {
+      content: '→';
+      position: absolute;
+      right: -10px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.4rem;
+      color: var(--gold);
+      font-weight: bold;
+      z-index: 1;
+    }
+    .flow-num {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--red);
+      color: var(--white);
+      font-family: var(--font-head);
+      font-size: 1.1rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 16px;
+    }
+    .flow-step h4 {
+      font-size: 0.95rem;
+      margin-bottom: 8px;
+    }
+    .flow-step p {
+      font-size: 0.83rem;
+      color: var(--text-muted);
+      margin: 0;
+      line-height: 1.6;
+    }
+    @media (max-width: 640px) {
+      .flow-steps { grid-template-columns: 1fr; }
+      .flow-step:not(:last-child)::after { content: '↓'; right: auto; left: 50%; top: auto; bottom: -12px; transform: translateX(-50%); }
+    }
+
+    /* ── Persyaratan / Checklist ── */
+    .req-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+    .req-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 28px;
+      box-shadow: var(--shadow);
+    }
+    .req-card h4 {
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .req-list {
+      list-style: none;
+      padding: 0;
+    }
+    .req-list li {
+      padding: 8px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.9rem;
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+    }
+    .req-list li:last-child { border-bottom: none; }
+    .req-list .check { color: #2e8a40; flex-shrink: 0; font-size: 0.85rem; margin-top: 2px; }
+    @media (max-width: 640px) {
+      .req-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ── Formulir Table ── */
+    .formulir-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+    .formulir-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .formulir-card:hover { box-shadow: var(--shadow-md); transform: translateY(-3px); }
+    .formulir-card-header {
+      background: var(--navy);
+      padding: 20px 22px 16px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .formulir-code {
+      background: rgba(200,169,81,0.25);
+      border: 1px solid rgba(200,169,81,0.4);
+      color: var(--gold);
+      padding: 4px 10px;
+      border-radius: 4px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      font-family: var(--font-body);
+      flex-shrink: 0;
+    }
+    .formulir-card-header h4 {
+      color: var(--white);
+      font-size: 0.9rem;
+      line-height: 1.4;
+      margin: 0;
+    }
+    .formulir-card-body {
+      padding: 20px 22px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .formulir-card-body p {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      flex: 1;
+      margin-bottom: 16px;
+    }
+    .formulir-card-footer {
+      padding: 0 22px 20px;
+      display: flex;
+      gap: 10px;
+    }
+
+    /* ── Kontak KEHP ── */
+    .kontak-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: start;
+    }
+    .kontak-item {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 24px;
+      align-items: flex-start;
+    }
+    .kontak-item .icon-wrap {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      background: var(--red-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+    .kontak-item h4 { font-size: 0.9rem; margin-bottom: 4px; }
+    .kontak-item p, .kontak-item a { font-size: 0.9rem; color: var(--text-muted); margin: 0; }
+    @media (max-width: 640px) {
+      .kontak-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <main>
+
+    <!-- ── Page Hero ── -->
+    <div class="page-hero">
+      <div class="container">
+        <div class="breadcrumb">
+          <a href="../">Beranda</a> <span>›</span> <span>KEHP</span>
+        </div>
+        <h1>Komisi Etik Hewan<br>dan Penelitian</h1>
+        <p>KEHP RSH Unhas bertugas mengkaji kelayakan etik kegiatan penelitian dan pendidikan yang melibatkan penggunaan hewan.</p>
+      </div>
+    </div>
+
+    <!-- ── Anchor Nav ── -->
+    <div class="anchor-nav" id="anchor-nav">
+      <div class="anchor-nav-inner">
+        <a href="#tentang"    class="active">Tentang KEHP</a>
+        <a href="#struktur">Struktur Komisi</a>
+        <a href="#alur">Alur Pengajuan</a>
+        <a href="#persyaratan">Persyaratan</a>
+        <a href="#formulir">Formulir</a>
+        <a href="#kontak">Kontak</a>
+      </div>
+    </div>
+
+    <!-- ════════════════════════════════
+         SECTION: TENTANG KEHP
+    ════════════════════════════════ -->
+    <section id="tentang" class="section bg-white">
+      <div class="container">
+        <div class="section-heading">
+          <span class="label">Tentang KEHP</span>
+          <h2>Apa itu KEHP RSH Unhas?</h2>
+          <div class="divider"></div>
+        </div>
+        <div style="display: grid; grid-template-columns: 3fr 2fr; gap: 56px; align-items: start;">
+          <div>
+            <p>Komisi Etik Hewan dan Penelitian (KEHP) Rumah Sakit Hewan Universitas Hasanuddin adalah komisi independen yang bertanggung jawab mengevaluasi dan memberikan persetujuan etik terhadap kegiatan penelitian, pendidikan, dan pengujian yang melibatkan hewan.</p>
+            <p>KEHP beroperasi berdasarkan prinsip <strong>3R</strong> — <em>Replacement</em> (penggantian), <em>Reduction</em> (pengurangan), dan <em>Refinement</em> (penyempurnaan) — sebagai landasan etik dalam penggunaan hewan untuk keperluan ilmiah.</p>
+            <p>Setiap kegiatan yang melibatkan hewan untuk tujuan penelitian atau pendidikan di lingkungan Universitas Hasanuddin wajib mendapatkan persetujuan etik dari KEHP sebelum kegiatan dimulai.</p>
+          </div>
+          <div>
+            <div class="info-box info-box-amber" style="margin-bottom: 16px;">
+              <strong>📌 Prinsip 3R</strong><br>
+              Seluruh protokol penelitian hewan dievaluasi berdasarkan prinsip <em>Replacement</em>, <em>Reduction</em>, dan <em>Refinement</em>.
+            </div>
+            <div class="info-box info-box-blue">
+              <strong>✉️ Pengajuan via Surel</strong><br>
+              Kirimkan berkas pengajuan ke:<br>
+              <a href="mailto:kehp.rshunhas@gmail.com" style="color: var(--red); font-weight: 600;">kehp.rshunhas@gmail.com</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════
+         SECTION: STRUKTUR KOMISI
+    ════════════════════════════════ -->
+    <section id="struktur" class="section bg-light">
+      <div class="container">
+        <div class="section-heading">
+          <span class="label">Struktur Komisi</span>
+          <h2>Pengurus KEHP RSH Unhas</h2>
+          <p>Isi dengan nama dan jabatan pengurus komisi.</p>
+          <div class="divider"></div>
+        </div>
+        <div class="struct-grid">
+          <div class="struct-card">
+            <div class="avatar">👨‍⚕️</div>
+            <div class="jabatan">Ketua</div>
+            <div class="nama">Nama Ketua</div>
+            <div class="bidang">Bidang Keahlian</div>
+          </div>
+          <div class="struct-card">
+            <div class="avatar">👩‍⚕️</div>
+            <div class="jabatan">Sekretaris</div>
+            <div class="nama">Nama Sekretaris</div>
+            <div class="bidang">Bidang Keahlian</div>
+          </div>
+          <div class="struct-card">
+            <div class="avatar">👨‍🔬</div>
+            <div class="jabatan">Anggota</div>
+            <div class="nama">Nama Anggota 1</div>
+            <div class="bidang">Bidang Keahlian</div>
+          </div>
+          <div class="struct-card">
+            <div class="avatar">👩‍🔬</div>
+            <div class="jabatan">Anggota</div>
+            <div class="nama">Nama Anggota 2</div>
+            <div class="bidang">Bidang Keahlian</div>
+          </div>
+        </div>
+        <p style="margin-top: 20px; font-size: 0.85rem; color: var(--text-muted); text-align: center;">
+          <em>Isi dengan nama, jabatan, dan bidang keahlian pengurus KEHP yang sebenarnya.</em>
+        </p>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════
+         SECTION: ALUR PENGAJUAN
+    ════════════════════════════════ -->
+    <section id="alur" class="section bg-white">
+      <div class="container">
+        <div class="section-heading">
+          <span class="label">Panduan</span>
+          <h2>Alur Pengajuan Persetujuan Etik</h2>
+          <p>Ikuti langkah-langkah berikut untuk mengajukan permohonan persetujuan etik.</p>
+          <div class="divider"></div>
+        </div>
+
+        <div class="flow-steps" style="background: var(--bg); border-radius: 10px; overflow: hidden;">
+          <div class="flow-step">
+            <div class="flow-num">1</div>
+            <h4>Unduh Formulir</h4>
+            <p>Unduh formulir F01 dan F02 dari bagian Formulir di halaman ini.</p>
+          </div>
+          <div class="flow-step">
+            <div class="flow-num">2</div>
+            <h4>Lengkapi Berkas</h4>
+            <p>Isi formulir, siapkan proposal penelitian atau panduan praktikum.</p>
+          </div>
+          <div class="flow-step">
+            <div class="flow-num">3</div>
+            <h4>Kirim via Surel</h4>
+            <p>Kirimkan semua berkas ke kehp.rshunhas@gmail.com dalam format PDF.</p>
+          </div>
+          <div class="flow-step">
+            <div class="flow-num">4</div>
+            <h4>Peninjauan KEHP</h4>
+            <p>Komisi akan meninjau berkas dan menghubungi pemohon jika ada kekurangan.</p>
+          </div>
+          <div class="flow-step">
+            <div class="flow-num">5</div>
+            <h4>Persetujuan Etik</h4>
+            <p>Surat persetujuan etik diterbitkan dan dikirimkan ke pemohon.</p>
+          </div>
+        </div>
+
+        <div class="info-box info-box-green" style="margin-top: 28px;">
+          <strong>ℹ️ Catatan:</strong> Pengajuan yang berkas-berkasnya lengkap akan diproses lebih cepat. Pastikan proposal mencantumkan justifikasi penggunaan hewan, jumlah dan jenis hewan, serta prosedur yang akan dilakukan.
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════
+         SECTION: PERSYARATAN
+    ════════════════════════════════ -->
+    <section id="persyaratan" class="section bg-light">
+      <div class="container">
+        <div class="section-heading">
+          <span class="label">Persyaratan</span>
+          <h2>Kelengkapan Berkas Pengajuan</h2>
+          <div class="divider"></div>
+        </div>
+        <div class="req-grid">
+          <div class="req-card">
+            <h4>
+              <span style="background: var(--red-light); padding: 4px 10px; border-radius: 4px; font-size: 0.8rem; color: var(--red);">Penelitian</span>
+              Berkas untuk Penelitian
+            </h4>
+            <ul class="req-list">
+              <li><span class="check">✓</span> Formulir KEHP-RSH-F01 (Surat Permohonan)</li>
+              <li><span class="check">✓</span> Formulir KEHP-RSH-F02 (Pengajuan Kelayakan Etik)</li>
+              <li><span class="check">✓</span> Proposal penelitian lengkap</li>
+              <li><span class="check">✓</span> Justifikasi penggunaan hewan (prinsip 3R)</li>
+              <li><span class="check">✓</span> Curriculum vitae peneliti utama</li>
+            </ul>
+          </div>
+          <div class="req-card">
+            <h4>
+              <span style="background: #e8ecf4; padding: 4px 10px; border-radius: 4px; font-size: 0.8rem; color: var(--navy);">Pendidikan</span>
+              Berkas untuk Pendidikan
+            </h4>
+            <ul class="req-list">
+              <li><span class="check">✓</span> Formulir KEHP-RSH-F01 (Surat Permohonan)</li>
+              <li><span class="check">✓</span> Formulir KEHP-RSH-F02 (Pengajuan Kelayakan Etik)</li>
+              <li><span class="check">✓</span> Panduan praktikum / modul pembelajaran</li>
+              <li><span class="check">✓</span> Daftar nama mahasiswa peserta</li>
+              <li><span class="check">✓</span> Surat pengantar dari institusi/program studi</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════
+         SECTION: FORMULIR
+    ════════════════════════════════ -->
+    <section id="formulir" class="section bg-white">
+      <div class="container">
+        <div class="section-heading">
+          <span class="label">Unduh &amp; Isi Formulir</span>
+          <h2>Formulir Pengajuan KEHP</h2>
+          <p>Formulir dapat diisi langsung di browser, lalu disimpan sebagai PDF untuk dikirimkan.</p>
+          <div class="divider"></div>
+        </div>
+        <div class="formulir-grid">
+
+          <div class="formulir-card">
+            <div class="formulir-card-header">
+              <span class="formulir-code">F01</span>
+              <h4>Surat Permohonan Persetujuan Etik</h4>
+            </div>
+            <div class="formulir-card-body">
+              <p>Surat resmi permohonan yang ditujukan kepada Direktur RSH Unhas c.q. Kepala Bidang Etik, memuat identitas pemohon dan judul kegiatan.</p>
+            </div>
+            <div class="formulir-card-footer">
+              <a href="../formulir/f01.html" target="_blank" class="btn btn-primary" style="flex: 1; text-align: center;">Buka &amp; Isi Formulir</a>
+            </div>
+          </div>
+
+          <div class="formulir-card">
+            <div class="formulir-card-header">
+              <span class="formulir-code">F02</span>
+              <h4>Pengajuan Peninjauan Kelayakan Etik</h4>
+            </div>
+            <div class="formulir-card-body">
+              <p>Formulir utama yang memuat detail kegiatan, justifikasi penggunaan hewan, prosedur yang akan dilakukan, dan pertimbangan kesejahteraan hewan.</p>
+            </div>
+            <div class="formulir-card-footer">
+              <a href="../formulir/f02.html" target="_blank" class="btn btn-primary" style="flex: 1; text-align: center;">Buka &amp; Isi Formulir</a>
+            </div>
+          </div>
+
+          <div class="formulir-card">
+            <div class="formulir-card-header">
+              <span class="formulir-code">F05</span>
+              <h4>Formulir Tambahan</h4>
+            </div>
+            <div class="formulir-card-body">
+              <p>Formulir pendukung pengajuan etik. Nama dan fungsi spesifik menyesuaikan konten formulir KEHP-RSH-F05.</p>
+            </div>
+            <div class="formulir-card-footer">
+              <a href="../formulir/f05.html" target="_blank" class="btn btn-primary" style="flex: 1; text-align: center;">Buka &amp; Isi Formulir</a>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="info-box info-box-amber" style="margin-top: 28px;">
+          <strong>💡 Cara Menggunakan Formulir:</strong> Buka formulir di browser, isi langsung di halaman, lalu klik tombol <strong>"Simpan sebagai PDF/Cetak"</strong> dan pilih <em>"Save as PDF"</em> di dialog cetak. Kirimkan file PDF beserta lampiran ke surel KEHP.
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════
+         SECTION: KONTAK
+    ════════════════════════════════ -->
+    <section id="kontak" class="section bg-light">
+      <div class="container">
+        <div class="section-heading">
+          <span class="label">Hubungi Kami</span>
+          <h2>Kontak Sekretariat KEHP</h2>
+          <div class="divider"></div>
+        </div>
+        <div class="kontak-grid">
+          <div>
+            <div class="kontak-item">
+              <div class="icon-wrap">✉️</div>
+              <div>
+                <h4>Surel Resmi KEHP</h4>
+                <a href="mailto:kehp.rshunhas@gmail.com">kehp.rshunhas@gmail.com</a>
+                <p style="margin-top:4px; font-size:0.82rem;">Untuk pengiriman berkas pengajuan etik.</p>
+              </div>
+            </div>
+            <div class="kontak-item">
+              <div class="icon-wrap">📍</div>
+              <div>
+                <h4>Alamat Sekretariat</h4>
+                <p>Jl. Al-Markaz Al-Islami Blok IX,<br>Kompleks Unhas Sunu, Kel. Kalukuang,<br>Kec. Tallo, Kota Makassar</p>
+              </div>
+            </div>
+            <div class="kontak-item">
+              <div class="icon-wrap">🕐</div>
+              <div>
+                <h4>Jam Kerja Sekretariat</h4>
+                <p>Senin – Jumat: 08.00 – 16.00 WITA<br>
+                <span style="font-size:0.82rem; color:var(--text-muted);">Di luar jam kerja, pengajuan melalui surel.</span></p>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="info-box info-box-blue" style="margin-bottom: 20px;">
+              <strong>📬 Kirim Berkas Pengajuan</strong><br><br>
+              Kirimkan semua berkas (F01, F02, dan proposal/panduan) dalam satu surel ke:<br>
+              <a href="mailto:kehp.rshunhas@gmail.com" style="font-weight: 700; color: var(--navy);">kehp.rshunhas@gmail.com</a><br><br>
+              Dengan subjek surel:<br>
+              <code style="background: rgba(0,0,0,0.07); padding: 2px 6px; border-radius: 3px; font-size: 0.85rem;">
+                [Pengajuan Etik] Nama – Judul Kegiatan
+              </code>
+            </div>
+            <a href="mailto:kehp.rshunhas@gmail.com?subject=[Pengajuan Etik] Nama - Judul Kegiatan"
+               class="btn btn-primary" style="width: 100%; text-align: center; display: block;">
+              Kirim Pengajuan Sekarang
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="../assets/js/components.js"></script>
+  <script>
+    /* ── Anchor nav active state on scroll ── */
+    const sections = document.querySelectorAll('section[id], div[id]');
+    const anchors  = document.querySelectorAll('.anchor-nav-inner a');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          anchors.forEach(a => a.classList.remove('active'));
+          const active = document.querySelector(`.anchor-nav-inner a[href="#${entry.target.id}"]`);
+          if (active) active.classList.add('active');
+        }
+      });
+    }, { rootMargin: '-30% 0px -60% 0px' });
+    sections.forEach(s => observer.observe(s));
+  </script>
+</body>
+</html>
