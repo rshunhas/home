@@ -165,6 +165,20 @@
             border-radius: 4px;
         }
 
+        .signature-area textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-family: inherit;
+            font-size: 14px;
+            resize: none;
+            overflow: hidden;
+            min-height: 38px;
+            display: block;
+        }
+        .signature-area .print-mirror { border: 1px solid #ccc; border-radius: 4px; }
+
         @media print {
             body { padding: 0; background: white; }
             .container { box-shadow: none; max-width: 100%; padding: 0; border: none; }
@@ -172,7 +186,7 @@
             ::placeholder { color: transparent !important; }
             
             /* Sembunyikan textarea asli, tunjukkan mirror div */
-            .col-input textarea { display: none !important; }
+            .col-input textarea, .signature-area textarea { display: none !important; }
             .print-mirror { display: block !important; }
             
             h3 { -webkit-print-color-adjust: exact; background-color: var(--unhas-red) !important; color: white !important; }
@@ -348,11 +362,11 @@
         <div class="signature-area">
             <div>
                 <label>Isian Kota dan Tanggal:</label>
-                <input type="text" id="pernyataan_tgl" placeholder="Contoh: Makassar, 5 Januari 2026">
+                <textarea id="pernyataan_tgl" rows="1" placeholder="Contoh: Makassar, 5 Januari 2026"></textarea><div id="mirror_pernyataan_tgl" class="print-mirror"></div>
             </div>
             <div>
                 <label>Nama Pemohon:</label>
-                <input type="text" id="pernyataan_nama" placeholder="Tuliskan nama lengkap (termasuk gelar)">
+                <textarea id="pernyataan_nama" rows="1" placeholder="Tuliskan nama lengkap (termasuk gelar)"></textarea><div id="mirror_pernyataan_nama" class="print-mirror"></div>
             </div>
         </div>
 
@@ -380,19 +394,19 @@
                 </tr>
                 <tr>
                     <td class="col-sublabel">a. Nama lengkap</td>
-                    <td class="col-input"><input type="text" id="nama_lengkap" placeholder="Tuliskan nama lengkap pemohon"></td>
+                    <td class="col-input"><textarea id="nama_lengkap" rows="1" placeholder="Tuliskan nama lengkap pemohon"></textarea><div id="mirror_nama_lengkap" class="print-mirror"></div></td>
                 </tr>
                 <tr>
                     <td class="col-sublabel">b. Jabatan</td>
-                    <td class="col-input"><input type="text" id="jabatan" placeholder="Contoh: Dosen, peneliti, atau mahasiswa S1"></td>
+                    <td class="col-input"><textarea id="jabatan" rows="1" placeholder="Contoh: Dosen, peneliti, atau mahasiswa S1"></textarea><div id="mirror_jabatan" class="print-mirror"></div></td>
                 </tr>
                 <tr>
                     <td class="col-sublabel">c. No. telepon</td>
-                    <td class="col-input"><input type="text" id="no_telp" placeholder="Contoh: 081...."></td>
+                    <td class="col-input"><textarea id="no_telp" rows="1" placeholder="Contoh: 081...."></textarea><div id="mirror_no_telp" class="print-mirror"></div></td>
                 </tr>
                 <tr>
                     <td class="col-sublabel">d. Surel</td>
-                    <td class="col-input"><input type="email" id="email" placeholder="Contoh: nama@unhas.ac.id"></td>
+                    <td class="col-input"><textarea id="email" rows="1" placeholder="Contoh: nama@unhas.ac.id"></textarea><div id="mirror_email" class="print-mirror"></div></td>
                 </tr>
 
 
@@ -449,7 +463,7 @@
                 </tr>
                 <tr>
                     <td class="col-sublabel indent-text">Jika ya, uraikan jenis kemitraan:</td>
-                    <td class="col-input"><input type="text" id="uraian_kemitraan" placeholder="Tuliskan nama mitra dan bentuk kerja sama"></td>
+                    <td class="col-input"><textarea id="uraian_kemitraan" rows="1" placeholder="Tuliskan nama mitra dan bentuk kerja sama"></textarea><div id="mirror_uraian_kemitraan" class="print-mirror"></div></td>
                 </tr>
 				<tr>
 					<td class="col-sublabel">f. Tempat pelaksanaan</td>
@@ -460,12 +474,12 @@
 				</tr>
                 <tr>
                     <td class="col-sublabel">g. Durasi/rentang waktu pelaksanaan</td>
-                    <td class="col-input"><input type="text" id="durasi_kegiatan" placeholder="Contoh: Enam bulan (Januari s.d. Juni 2026)"></td>
+                    <td class="col-input"><textarea id="durasi_kegiatan" rows="1" placeholder="Contoh: Enam bulan (Januari s.d. Juni 2026)"></textarea><div id="mirror_durasi_kegiatan" class="print-mirror"></div></td>
                 </tr>
                 <tr>
                 <tr>
                     <td class="col-sublabel">h. Sumber dan jumlah dana</td>
-                    <td class="col-input"><input type="text" id="sumber_dana" placeholder="Contoh: Hibah LPPM Unhas, Rp10.000.000"></td>
+                    <td class="col-input"><textarea id="sumber_dana" rows="1" placeholder="Contoh: Hibah LPPM Unhas, Rp10.000.000"></textarea><div id="mirror_sumber_dana" class="print-mirror"></div></td>
                 </tr>
 				<tr>
                     <td rowspan="3" class="col-num">3.</td>
@@ -574,15 +588,15 @@
                 </tr>
                 <tr>
                     <td class="col-sublabel">a. Nama lengkap</td>
-                    <td class="col-input"><input type="text" id="c1_nama" placeholder="Tuliskan nama pemimpin atau penanggung jawab kegiatan"></td>
+                    <td class="col-input"><textarea id="c1_nama" rows="1" placeholder="Tuliskan nama pemimpin atau penanggung jawab kegiatan"></textarea><div id="mirror_c1_nama" class="print-mirror"></div></td>
                 </tr>
                 <tr>
                     <td class="col-sublabel">b. Jabatan</td>
-                    <td class="col-input"><input type="text" id="c1_jabatan" placeholder="Contoh: Dosen di ... "></td>
+                    <td class="col-input"><textarea id="c1_jabatan" rows="1" placeholder="Contoh: Dosen di ... "></textarea><div id="mirror_c1_jabatan" class="print-mirror"></div></td>
                 </tr>
                 <tr>
                     <td class="col-sublabel">c. Institusi</td>
-                    <td class="col-input"><input type="text" id="c1_institusi" placeholder="Tuliskan nama institusi asal"></td>
+                    <td class="col-input"><textarea id="c1_institusi" rows="1" placeholder="Tuliskan nama institusi asal"></textarea><div id="mirror_c1_institusi" class="print-mirror"></div></td>
                 </tr>
                 <tr>
                     <td class="col-sublabel">d. Kualifikasi yang relevan</td>
@@ -632,8 +646,8 @@
     <tbody>
         <tr>
             <td class="col-num">1</td>
-            <td class="col-input"><input type="text" id="c4_nama_1" placeholder="Tuliskan nama personel 1"></td>
-            <td class="col-input"><input type="text" id="c4_peran_1" placeholder="Contoh: Peneliti"></td>
+            <td class="col-input"><textarea id="c4_nama_1" rows="1" placeholder="Tuliskan nama personel 1"></textarea><div id="mirror_c4_nama_1" class="print-mirror"></div></td>
+            <td class="col-input"><textarea id="c4_peran_1" rows="1" placeholder="Contoh: Peneliti"></textarea><div id="mirror_c4_peran_1" class="print-mirror"></div></td>
             <td class="col-input">
                 <textarea id="c4_kual_1" placeholder="Tuliskan keahlian dan pengalaman spesifik"></textarea>
                 <div id="mirror_c4_kual_1" class="print-mirror"></div>
@@ -641,8 +655,8 @@
         </tr>
         <tr>
             <td class="col-num">2</td>
-            <td class="col-input"><input type="text" id="c4_nama_2" placeholder="Tuliskan nama personel 2"></td>
-            <td class="col-input"><input type="text" id="c4_peran_2" placeholder="Peran"></td>
+            <td class="col-input"><textarea id="c4_nama_2" rows="1" placeholder="Tuliskan nama personel 2"></textarea><div id="mirror_c4_nama_2" class="print-mirror"></div></td>
+            <td class="col-input"><textarea id="c4_peran_2" rows="1" placeholder="Peran"></textarea><div id="mirror_c4_peran_2" class="print-mirror"></div></td>
             <td class="col-input">
                 <textarea id="c4_kual_2" placeholder="Tuliskan keahlian dan pengalaman spesifik"></textarea>
                 <div id="mirror_c4_kual_2" class="print-mirror"></div>
@@ -650,8 +664,8 @@
         </tr>
         <tr>
             <td class="col-num">3</td>
-            <td class="col-input"><input type="text" id="c4_nama_3" placeholder="Tuliskan nama personel 3"></td>
-            <td class="col-input"><input type="text" id="c4_peran_3" placeholder="Peran"></td>
+            <td class="col-input"><textarea id="c4_nama_3" rows="1" placeholder="Tuliskan nama personel 3"></textarea><div id="mirror_c4_nama_3" class="print-mirror"></div></td>
+            <td class="col-input"><textarea id="c4_peran_3" rows="1" placeholder="Peran"></textarea><div id="mirror_c4_peran_3" class="print-mirror"></div></td>
             <td class="col-input">
                 <textarea id="c4_kual_3" placeholder="Tuliskan keahlian dan pengalaman spesifik"></textarea>
                 <div id="mirror_c4_kual_3" class="print-mirror"></div>
@@ -659,8 +673,8 @@
         </tr>
         <tr>
             <td class="col-num">4</td>
-            <td class="col-input"><input type="text" id="c4_nama_4" placeholder="Tuliskan nama personel 4"></td>
-            <td class="col-input"><input type="text" id="c4_peran_4" placeholder="Peran"></td>
+            <td class="col-input"><textarea id="c4_nama_4" rows="1" placeholder="Tuliskan nama personel 4"></textarea><div id="mirror_c4_nama_4" class="print-mirror"></div></td>
+            <td class="col-input"><textarea id="c4_peran_4" rows="1" placeholder="Peran"></textarea><div id="mirror_c4_peran_4" class="print-mirror"></div></td>
             <td class="col-input">
                 <textarea id="c4_kual_4" placeholder="Tuliskan keahlian dan pengalaman spesifik"></textarea>
                 <div id="mirror_c4_kual_4" class="print-mirror"></div>
@@ -668,8 +682,8 @@
         </tr>
         <tr>
             <td class="col-num">5</td>
-            <td class="col-input"><input type="text" id="c4_nama_5" placeholder="Tuliskan nama personel 5"></td>
-            <td class="col-input"><input type="text" id="c4_peran_5" placeholder="Peran"></td>
+            <td class="col-input"><textarea id="c4_nama_5" rows="1" placeholder="Tuliskan nama personel 5"></textarea><div id="mirror_c4_nama_5" class="print-mirror"></div></td>
+            <td class="col-input"><textarea id="c4_peran_5" rows="1" placeholder="Peran"></textarea><div id="mirror_c4_peran_5" class="print-mirror"></div></td>
             <td class="col-input">
                 <textarea id="c4_kual_5" placeholder="Tuliskan keahlian dan pengalaman spesifik"></textarea>
                 <div id="mirror_c4_kual_5" class="print-mirror"></div>
@@ -928,22 +942,22 @@
                 </tr>
                 <tr>
                     <td class="col-sublabel">c. Subspesies, <i>breed</i>, atau <i>strain</i> hewan (jika relevan)</td>
-                    <td class="col-input"><input type="text" id="e3c_subspesies" placeholder="Tuliskan subspesies, breed, atau strain hewan yang dilibatkan"></td>
+                    <td class="col-input"><textarea id="e3c_subspesies" rows="1" placeholder="Tuliskan subspesies, breed, atau strain hewan yang dilibatkan"></textarea><div id="mirror_e3c_subspesies" class="print-mirror"></div></td>
                 </tr>
                 <tr>
                     <td colspan="2" class="col-sublabel">d. Karakteristik lain (jika relevan):</td>
                 </tr>
                 <tr>
                     <td class="col-sublabel indent-text">(1) Jenis kelamin</td>
-                    <td class="col-input"><input type="text" id="e3d1_sex" placeholder="Tuliskan jenis kelamin hewan"></td>
+                    <td class="col-input"><textarea id="e3d1_sex" rows="1" placeholder="Tuliskan jenis kelamin hewan"></textarea><div id="mirror_e3d1_sex" class="print-mirror"></div></td>
                 </tr>
                 <tr>
                     <td class="col-sublabel indent-text">(2) Umur</td>
-                    <td class="col-input"><input type="text" id="e3d2_umur" placeholder="Tuliskan umur hewan"></td>
+                    <td class="col-input"><textarea id="e3d2_umur" rows="1" placeholder="Tuliskan umur hewan"></textarea><div id="mirror_e3d2_umur" class="print-mirror"></div></td>
                 </tr>
                 <tr>
                     <td class="col-sublabel indent-text">(3) Berat badan</td>
-                    <td class="col-input"><input type="text" id="e3d3_bb" placeholder="Tuliskan berat badan hewan"></td>
+                    <td class="col-input"><textarea id="e3d3_bb" rows="1" placeholder="Tuliskan berat badan hewan"></textarea><div id="mirror_e3d3_bb" class="print-mirror"></div></td>
                 </tr>
 
                 <tr>
@@ -952,7 +966,7 @@
                 </tr>
                 <tr>
                     <td class="col-sublabel">a. Jumlah keseluruhan hewan</td>
-                    <td class="col-input"><input type="text" id="e4a_jumlah_total" placeholder="Tuliskan keseluruhan jumlah hewan hidup yang terlibat"></td>
+                    <td class="col-input"><textarea id="e4a_jumlah_total" rows="1" placeholder="Tuliskan keseluruhan jumlah hewan hidup yang terlibat"></textarea><div id="mirror_e4a_jumlah_total" class="print-mirror"></div></td>
                 </tr>
                 <tr>
                     <td class="col-sublabel">b. Justifikasi penentuan jumlah hewan (alasan tidak menggunakan lebih sedikit hewan)</td>
@@ -1058,7 +1072,7 @@
                 </tr>
                 <tr>
                     <td class="col-sublabel">a. Total durasi keterlibatan hewan</td>
-                    <td class="col-input"><input type="text" id="f1a_total_durasi" placeholder="Contoh: 14 hari selama 2 jam per sesi"></td>
+                    <td class="col-input"><textarea id="f1a_total_durasi" rows="1" placeholder="Contoh: 14 hari selama 2 jam per sesi"></textarea><div id="mirror_f1a_total_durasi" class="print-mirror"></div></td>
                 </tr>
                 <tr>
                     <td class="col-sublabel">b. Berikan justifikasi mengapa durasi ini diperlukan</td>
@@ -1091,11 +1105,11 @@
                 </tr>
                 <tr>
                     <td class="col-sublabel">c. Berapa luas ukuran kandang atau wadah?</td>
-                    <td class="col-input"><input type="text" id="f2c_luas_wadah" placeholder="Contoh: panjang 30 cm, lebar, 20 cm, tinggi 20 cm"></td>
+                    <td class="col-input"><textarea id="f2c_luas_wadah" rows="1" placeholder="Contoh: panjang 30 cm, lebar, 20 cm, tinggi 20 cm"></textarea><div id="mirror_f2c_luas_wadah" class="print-mirror"></div></td>
                 </tr>
                 <tr>
                     <td class="col-sublabel">d. Berapa banyak hewan dalam satu kandang atau wadah?</td>
-                    <td class="col-input"><input type="text" id="f2d_jumlah_per_wadah" placeholder="Contoh: Empat ekor hewan per wadah"></td>
+                    <td class="col-input"><textarea id="f2d_jumlah_per_wadah" rows="1" placeholder="Contoh: Empat ekor hewan per wadah"></textarea><div id="mirror_f2d_jumlah_per_wadah" class="print-mirror"></div></td>
                 </tr>
                 <tr>
                     <td colspan="2" class="col-sublabel">e. Jelaskan penyediaan fasilitas pendukung dan kondisinya:</td>
@@ -1513,41 +1527,41 @@
                 
                 <tr>
                     <td class="col-sublabel indent-text">(1) Nama agen</td>
-                    <td class="col-input"><input type="text" id="f9c1_nama" placeholder="Tuliskan nama agen"></td>
+                    <td class="col-input"><textarea id="f9c1_nama" rows="1" placeholder="Tuliskan nama agen"></textarea><div id="mirror_f9c1_nama" class="print-mirror"></div></td>
                 </tr>
                 <tr>
                     <td class="col-sublabel indent-text" style="padding-left: 45px !important;">Dosis</td>
-                    <td class="col-input"><input type="text" id="f9c1_dosis" placeholder="Tuliskan dosis agen (mg/kg BB)"></td>
+                    <td class="col-input"><textarea id="f9c1_dosis" rows="1" placeholder="Tuliskan dosis agen (mg/kg BB)"></textarea><div id="mirror_f9c1_dosis" class="print-mirror"></div></td>
                 </tr>
                 <tr>
                     <td class="col-sublabel indent-text" style="padding-left: 45px !important;">Rute penghantaran</td>
-                    <td class="col-input"><input type="text" id="f9c1_rute" placeholder="Contoh: Intravena"></td>
+                    <td class="col-input"><textarea id="f9c1_rute" rows="1" placeholder="Contoh: Intravena"></textarea><div id="mirror_f9c1_rute" class="print-mirror"></div></td>
                 </tr>
 
                 <tr>
                     <td class="col-sublabel indent-text">(2) Nama agen</td>
-                    <td class="col-input"><input type="text" id="f9c2_nama" placeholder="Tuliskan nama agen"></td>
+                    <td class="col-input"><textarea id="f9c2_nama" rows="1" placeholder="Tuliskan nama agen"></textarea><div id="mirror_f9c2_nama" class="print-mirror"></div></td>
                 </tr>
                 <tr>
                     <td class="col-sublabel indent-text" style="padding-left: 45px !important;">Dosis</td>
-                    <td class="col-input"><input type="text" id="f9c2_dosis" placeholder="Tuliskan dosis agen (mg/kg BB)"></td>
+                    <td class="col-input"><textarea id="f9c2_dosis" rows="1" placeholder="Tuliskan dosis agen (mg/kg BB)"></textarea><div id="mirror_f9c2_dosis" class="print-mirror"></div></td>
                 </tr>
                 <tr>
                     <td class="col-sublabel indent-text" style="padding-left: 45px !important;">Rute penghantaran</td>
-                    <td class="col-input"><input type="text" id="f9c2_rute" placeholder="Contoh: Intravena"></td>
+                    <td class="col-input"><textarea id="f9c2_rute" rows="1" placeholder="Contoh: Intravena"></textarea><div id="mirror_f9c2_rute" class="print-mirror"></div></td>
                 </tr>
 
                 <tr>
                     <td class="col-sublabel indent-text">(3) Nama agen</td>
-                    <td class="col-input"><input type="text" id="f9c3_nama" placeholder="Tuliskan nama agen"></td>
+                    <td class="col-input"><textarea id="f9c3_nama" rows="1" placeholder="Tuliskan nama agen"></textarea><div id="mirror_f9c3_nama" class="print-mirror"></div></td>
                 </tr>
                 <tr>
                     <td class="col-sublabel indent-text" style="padding-left: 45px !important;">Dosis</td>
-                    <td class="col-input"><input type="text" id="f9c3_dosis" placeholder="Tuliskan dosis agen (mg/kg BB)"></td>
+                    <td class="col-input"><textarea id="f9c3_dosis" rows="1" placeholder="Tuliskan dosis agen (mg/kg BB)"></textarea><div id="mirror_f9c3_dosis" class="print-mirror"></div></td>
                 </tr>
                 <tr>
                     <td class="col-sublabel indent-text" style="padding-left: 45px !important;">Rute penghantaran</td>
-                    <td class="col-input"><input type="text" id="f9c3_rute" placeholder="Contoh: Intravena"></td>
+                    <td class="col-input"><textarea id="f9c3_rute" rows="1" placeholder="Contoh: Intravena"></textarea><div id="mirror_f9c3_rute" class="print-mirror"></div></td>
                 </tr>
 
                 <tr>
@@ -1597,36 +1611,36 @@
                 
                 <tr>
                     <td class="col-sublabel indent-text">(1) Nama agen</td>
-                    <td class="col-input"><input type="text" id="f10b1_nama" placeholder="Tuliskan nama agen/substansi"></td>
+                    <td class="col-input"><textarea id="f10b1_nama" rows="1" placeholder="Tuliskan nama agen/substansi"></textarea><div id="mirror_f10b1_nama" class="print-mirror"></div></td>
                 </tr>
                 <tr>
                     <td class="col-sublabel indent-text" style="padding-left: 45px !important;">Dosis</td>
-                    <td class="col-input"><input type="text" id="f10b1_dosis" placeholder="Contoh: 10 mg/kg BB"></td>
+                    <td class="col-input"><textarea id="f10b1_dosis" rows="1" placeholder="Contoh: 10 mg/kg BB"></textarea><div id="mirror_f10b1_dosis" class="print-mirror"></div></td>
                 </tr>
                 <tr>
                     <td class="col-sublabel indent-text" style="padding-left: 45px !important;">Rute penghantaran</td>
-                    <td class="col-input"><input type="text" id="f10b1_rute" placeholder="Contoh: Intramuskuler"></td>
+                    <td class="col-input"><textarea id="f10b1_rute" rows="1" placeholder="Contoh: Intramuskuler"></textarea><div id="mirror_f10b1_rute" class="print-mirror"></div></td>
                 </tr>
                 <tr>
                     <td class="col-sublabel indent-text" style="padding-left: 45px !important;">Frekuensi dan durasi pemberian</td>
-                    <td class="col-input"><input type="text" id="f10b1_freq" placeholder="Contoh: 1 kali sehari selama 3 hari"></td>
+                    <td class="col-input"><textarea id="f10b1_freq" rows="1" placeholder="Contoh: 1 kali sehari selama 3 hari"></textarea><div id="mirror_f10b1_freq" class="print-mirror"></div></td>
                 </tr>
 
                 <tr>
                     <td class="col-sublabel indent-text">(2) Nama agen</td>
-                    <td class="col-input"><input type="text" id="f10b2_nama" placeholder="Tuliskan nama agen/substansi"></td>
+                    <td class="col-input"><textarea id="f10b2_nama" rows="1" placeholder="Tuliskan nama agen/substansi"></textarea><div id="mirror_f10b2_nama" class="print-mirror"></div></td>
                 </tr>
                 <tr>
                     <td class="col-sublabel indent-text" style="padding-left: 45px !important;">Dosis</td>
-                    <td class="col-input"><input type="text" id="f10b2_dosis" placeholder="Contoh: 10 mg/kg BB"></td>
+                    <td class="col-input"><textarea id="f10b2_dosis" rows="1" placeholder="Contoh: 10 mg/kg BB"></textarea><div id="mirror_f10b2_dosis" class="print-mirror"></div></td>
                 </tr>
                 <tr>
                     <td class="col-sublabel indent-text" style="padding-left: 45px !important;">Rute penghantaran</td>
-                    <td class="col-input"><input type="text" id="f10b2_rute" placeholder="Contoh: Intramuskuler"></td>
+                    <td class="col-input"><textarea id="f10b2_rute" rows="1" placeholder="Contoh: Intramuskuler"></textarea><div id="mirror_f10b2_rute" class="print-mirror"></div></td>
                 </tr>
                 <tr>
                     <td class="col-sublabel indent-text" style="padding-left: 45px !important;">Frekuensi dan durasi pemberian</td>
-                    <td class="col-input"><input type="text" id="f10b2_freq" placeholder="Contoh: 1 kali sehari selama 3 hari"></td>
+                    <td class="col-input"><textarea id="f10b2_freq" rows="1" placeholder="Contoh: 1 kali sehari selama 3 hari"></textarea><div id="mirror_f10b2_freq" class="print-mirror"></div></td>
                 </tr>
 
                 <tr>
@@ -1702,11 +1716,11 @@
                 </tr>
                 <tr>
                     <td class="col-sublabel indent-text">(1) Nama agen</td>
-                    <td class="col-input"><input type="text" id="f12b1_nama" placeholder="Tuliskan nama agen"></td>
+                    <td class="col-input"><textarea id="f12b1_nama" rows="1" placeholder="Tuliskan nama agen"></textarea><div id="mirror_f12b1_nama" class="print-mirror"></div></td>
                 </tr>
                 <tr>
                     <td class="col-sublabel indent-text">(2) Rumus kimia (jika ada)</td>
-                    <td class="col-input"><input type="text" id="f12b2_rumus" placeholder="Tuliskan rumus kimia agen"></td>
+                    <td class="col-input"><textarea id="f12b2_rumus" rows="1" placeholder="Tuliskan rumus kimia agen"></textarea><div id="mirror_f12b2_rumus" class="print-mirror"></div></td>
                 </tr>
                 <tr>
                     <td class="col-sublabel indent-text">(3) Apakah agen bersifat infeksius?</td>
@@ -1750,7 +1764,7 @@
                 </tr>
                 <tr>
                     <td class="col-sublabel indent-text">(7) Dosis yang akan digunakan</td>
-                    <td class="col-input"><input type="text" id="f12b7_dosis" placeholder="Tuliskan dosis agen yang akan diberikan"></td>
+                    <td class="col-input"><textarea id="f12b7_dosis" rows="1" placeholder="Tuliskan dosis agen yang akan diberikan"></textarea><div id="mirror_f12b7_dosis" class="print-mirror"></div></td>
                 </tr>
                 <tr>
                     <td class="col-sublabel indent-text">(8) Efek terhadap hewan</td>
@@ -1787,7 +1801,7 @@
                 </tr>
                 <tr>
                     <td class="col-sublabel">d. Di mana prosedur ini akan dilakukan?</td>
-                    <td class="col-input"><input type="text" id="f12d_lokasi" placeholder="Tuliskan laboratorium atau ruangan spesifik"></td>
+                    <td class="col-input"><textarea id="f12d_lokasi" rows="1" placeholder="Tuliskan laboratorium atau ruangan spesifik"></textarea><div id="mirror_f12d_lokasi" class="print-mirror"></div></td>
                 </tr>
                 <tr>
                     <td class="col-sublabel">e. Jelaskan cara untuk melindungi personel yang terlibat</td>
@@ -1847,7 +1861,7 @@
                 <tr>
                     <td class="col-sublabel indent-text">(2) Jumlah hewan yang menjalani pembedahan</td>
                     <td class="col-input">
-                        <input type="text" id="f13d2_jumlah" placeholder="Tuliskan jumlah hewan">
+                        <textarea id="f13d2_jumlah" rows="1" placeholder="Tuliskan jumlah hewan"></textarea><div id="mirror_f13d2_jumlah" class="print-mirror"></div>
                     </td>
                 </tr>
                 <tr>
@@ -2115,6 +2129,12 @@
             autoExpand(e.target);
         }
     });
+
+    function expandAll() {
+        document.querySelectorAll('textarea').forEach(autoExpand);
+    }
+    window.addEventListener('resize', expandAll);
+    window.addEventListener('load', expandAll);
 
     function autoExpand(field) {
         field.style.height = 'inherit';
